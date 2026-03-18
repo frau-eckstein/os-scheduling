@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CPU-Scheduling – Interaktives Lernwerkzeug</title>
+<title>Inf12 eA Scheduling</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
@@ -827,7 +827,7 @@ const STRAT_META = {
   ps: {
     name: 'Priority Scheduling', emoji: '⭐',
     preemptive: false,
-    desc: 'Jedem Prozess wird eine Priorität zugewiesen (1 = höchste Priorität). Der Prozess mit der höchsten Priorität erhält die CPU. Bei gleicher Priorität entscheidet die Ankunftsreihenfolge (FCFS).',
+    desc: 'Jedem Prozess wird eine Priorität zugewiesen (1 = höchste Priorität). Der Prozess mit der höchsten Priorität erhält die CPU. Bei gleicher Priorität entscheidet die Ankunftsreihenfolge.',
     tip: '💡 <strong>Starvation-Gefahr:</strong> Niedrig priorisierte Prozesse können ewig warten. Lösung: <strong>Aging</strong> – die Priorität steigt automatisch mit der Wartezeit!'
   },
 };
@@ -1082,6 +1082,7 @@ function renderResult(log, quantum) {
           <div class="strat-hero-badges">
             ${preTag}
             ${currentStrategy==='rr' ? `<span class="badge badge-q">⏱ Quantum = ${quantum} ZE</span>` : ''}
+			${currentStrategy==='ps' ? `<span class="badge badge-p">preemptive</span>` : ''}
           </div>
         </div>
       </div>
