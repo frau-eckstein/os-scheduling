@@ -1,1 +1,1 @@
-# os-scheduling
+# GitHub Pages frau-eckstein
