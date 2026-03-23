@@ -140,7 +140,7 @@ header {
   background: var(--surface2); border: 1px solid var(--border);
   border-radius: 6px; color: var(--text);
   font-family: var(--font-mono); font-size: 12px;
-  width: 38px; padding: 3px 6px; outline: none; text-align: center;
+  width: 60px; padding: 3px 6px; outline: none; text-align: left;
   transition: border-color .15s;
 }
 .arrival-input:focus { border-color: var(--cyan); }
@@ -845,6 +845,11 @@ function init() {
 }
 
 function addProcess(preset = null) {
+  if (processes.length >= 20) {
+	showToast('Maximal 20 Prozesse erlaubt!');
+	return;
+  }
+  
   const id = nextId++;
   const idx = (id - 1) % COLORS.length;
   const proc = preset
@@ -873,18 +878,18 @@ function renderProcessCards() {
         <input class="process-name-input" value="${p.name}" onchange="updateProc(${p.id},'name',this.value)">
         <div class="arrival-wrap">
           <span class="arrival-label">🕐 t=</span>
-          <input class="arrival-input" type="number" min="0" max="100" value="${p.arrival}" onchange="updateProc(${p.id},'arrival',+this.value)">
+          <input class="arrival-input" type="number" min="0" max="100" value="${p.arrival}" oninput="this.value = Math.min(100, Math.max(0, this.value))" onchange="updateProc(${p.id},'arrival',+this.value)">
         </div>
         <button class="delete-btn" onclick="removeProcess(${p.id})" title="Entfernen">✕</button>
       </div>
       <div class="fields-grid">
         <div class="field-group">
           <label><span class="lbl-emoji">⏳</span>Burst-Zeit (ZE)</label>
-          <input type="number" min="1" max="50" value="${p.burst}" onchange="updateProc(${p.id},'burst',+this.value)">
+          <input type="number" min="1" max="50" value="${p.burst}" oninput="this.value = Math.min(50, Math.max(1, this.value))" onchange="updateProc(${p.id},'burst',+this.value)">
         </div>
         <div class="field-group">
           <label><span class="lbl-emoji">⭐</span>Priorität (1=hoch)</label>
-          <input type="number" min="1" max="10" value="${p.priority}" onchange="updateProc(${p.id},'priority',+this.value)">
+          <input type="number" min="1" max="50" value="${p.priority}" oninput="this.value = Math.min(50, Math.max(1, this.value))" onchange="updateProc(${p.id},'priority',+this.value)">
         </div>
       </div>
     </div>
@@ -990,7 +995,7 @@ function runSchedule() {
     p.name = inputs[0].value || p.name;
     p.arrival = +inputs[1].value || 0;
     p.burst = Math.max(1, +inputs[2].value || 1);
-    p.priority = Math.max(1, +inputs[3].value || 1);
+	p.priority = Math.max(1, +inputs[3].value || 1);	
   });
   const quantum = parseInt(document.getElementById('quantum-input').value) || 2;
   const procs = cloneProcs();
