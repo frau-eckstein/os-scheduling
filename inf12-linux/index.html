@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inf12 eA · Betriebssysteme</title>
+<link rel="stylesheet" href="styles.css">
+  <style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3250;
+    --text: #e2e8f0;
+    --text-dim: #8892a4;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Nunito', sans-serif;
+
+    /* CVD-safe accent palette – one per LP */
+    --c1: #5b9cf6;  --c1d: #1a2f55;
+    --c2: #22d3ee;  --c2d: #0a3040;
+    --c3: #fb923c;  --c3d: #3d1f00;
+    --c4: #f472b6;  --c4d: #3d0d28;
+    --c5: #22d3ee;  --c5d: #0a3040;
+    --c6: #5b9cf6;  --c6d: #1a2f55;
+    --c7: #2dd4bf;  --c7d: #003d38;
+    --purple: #c084fc; --purple-dim: #2d1a4d;
+  }
+  </style>
+</head>
+<body>
+
+  <!-- ── Hero ─────────────────────────────────────────────────── -->
+  <div class="hero">
+    <div class="hero-eyebrow">Informatik 12 eA · Bayern</div>
+    <h1 class="hero-title">
+      <span>Betriebssysteme</span><br>mit Linux
+    </h1>
+    <p class="hero-sub">
+      Von der ersten Terminal-Eingabe bis zum eigenen Systemdienst.
+    </p>
+    <a href="AB_1_Linux_kennenlernen.html" class="hero-cta">
+      Lernpfad starten &nbsp;→
+    </a>
+  </div>
+
+  <!-- ── LP Cards ──────────────────────────────────────────────── -->
+  <div class="section-label">Lernpakete</div>
+
+  <div class="lp-grid">
+
+    <!-- LP 1 -->
+    <a href="AB_1_Linux_kennenlernen.html" class="lp-card"
+       style="--card-accent:var(--c1); --card-accent-dim:var(--c1d);">
+      <div class="lp-card-head">
+        <span class="lp-number">LP 1</span>
+        <span class="lp-icon">🖥️</span>
+        <span class="lp-title">Linux kennenlernen</span>
+      </div>
+      <p class="lp-desc">Erste Schritte mit Linux: System erkunden, Hardware-Infos abrufen und Linux mit anderen Betriebssystemen vergleichen.</p>
+      <div class="lp-topics">
+        <span class="topic-chip">Ubuntu 24</span>
+        <span class="topic-chip">Dateimanager</span>
+      </div>
+      <div class="lp-footer">
+        <span class="lp-auftraege">4 Arbeitsaufträge</span>
+        <span class="lp-go">Öffnen →</span>
+      </div>
+    </a>
+
+    <!-- LP 2 -->
+    <a href="AB_2_Linux_Terminal.html" class="lp-card"
+       style="--card-accent:var(--c2); --card-accent-dim:var(--c2d);">
+      <div class="lp-card-head">
+        <span class="lp-number">LP 2</span>
+        <span class="lp-icon">⌨️</span>
+        <span class="lp-title">Linux-Terminal</span>
+      </div>
+      <p class="lp-desc">Grundlegende Terminal-Befehle, Dateisystemstruktur erkunden und eigene Java-Programme direkt im Terminal schreiben und ausführen.</p>
+      <div class="lp-topics">
+        <span class="topic-chip">Terminal</span>
+        <span class="topic-chip">Kommandozeilenparameter</span>
+      </div>
+      <div class="lp-footer">
+        <span class="lp-auftraege">2 Arbeitsaufträge</span>
+        <span class="lp-go">Öffnen →</span>
+      </div>
+    </a>
+
+    <!-- LP 3 -->
+    <a href="AB_3_Linux_Kernel.html" class="lp-card"
+       style="--card-accent:var(--c3); --card-accent-dim:var(--c3d);">
+      <div class="lp-card-head">
+        <span class="lp-number">LP 3</span>
+        <span class="lp-icon">⚙️</span>
+        <span class="lp-title">Der Linux-Kernel</span>
+      </div>
+      <p class="lp-desc">Kernel-Schnittstellen erkunden und Syscalls sichtbar machen.</p>
+      <div class="lp-topics">
+        <span class="topic-chip">/proc</span>
+        <span class="topic-chip">dmesg</span>
+        <span class="topic-chip">SysRq</span>
+      </div>
+      <div class="lp-footer">
+        <span class="lp-auftraege">3 Arbeitsaufträge</span>
+        <span class="lp-go">Öffnen →</span>
+      </div>
+    </a>
+
+    <!-- LP 4 -->
+    <a href="AB_4_Scheduling.html" class="lp-card"
+       style="--card-accent:var(--c4); --card-accent-dim:var(--c4d);">
+      <div class="lp-card-head">
+        <span class="lp-number">LP 4</span>
+        <span class="lp-icon">⏱️</span>
+        <span class="lp-title">Scheduling</span>
+      </div>
+      <p class="lp-desc">Laufzeiten messen und Prozesse mit Signalen steuern.</p>
+      <div class="lp-topics">
+        <span class="topic-chip">time · stress</span>
+        <span class="topic-chip">Signale</span>
+      </div>
+      <div class="lp-footer">
+        <span class="lp-auftraege">2 Arbeitsaufträge</span>
+        <span class="lp-go">Öffnen →</span>
+      </div>
+    </a>
+
+    <!-- LP 5 -->
+    <a href="AB_5_Benutzerverwaltung.html" class="lp-card"
+       style="--card-accent:var(--c5); --card-accent-dim:var(--c5d);">
+      <div class="lp-card-head">
+        <span class="lp-number">LP 5</span>
+        <span class="lp-icon">👥</span>
+        <span class="lp-title">Benutzerverwaltung</span>
+      </div>
+      <p class="lp-desc">Nutzeraccounts und Gruppen anlegen sowie sudo-Rechte gezielt einsetzen.</p>
+      <div class="lp-topics">
+        <span class="topic-chip">adduser · groupadd</span>
+        <span class="topic-chip">sudo</span>
+      </div>
+      <div class="lp-footer">
+        <span class="lp-auftraege">2 Arbeitsaufträge</span>
+        <span class="lp-go">Öffnen →</span>
+      </div>
+    </a>
+
+    <!-- LP 6 -->
+    <a href="AB_6_Rechteverwaltung.html" class="lp-card"
+       style="--card-accent:var(--c6); --card-accent-dim:var(--c6d);">
+      <div class="lp-card-head">
+        <span class="lp-number">LP 6</span>
+        <span class="lp-icon">🔑</span>
+        <span class="lp-title">Rechteverwaltung</span>
+      </div>
+      <p class="lp-desc">Zugriffsrechte verwalten, rwx für user/group/others verstehen und erweiterte Bits erforschen.</p>
+      <div class="lp-topics">
+        <span class="topic-chip">chmod · chown</span>
+        <span class="topic-chip">r · w · x</span>
+        <span class="topic-chip">Sticky-Bit</span>
+      </div>
+      <div class="lp-footer">
+        <span class="lp-auftraege">2 Arbeitsaufträge</span>
+        <span class="lp-go">Öffnen →</span>
+      </div>
+    </a>
+
+    <!-- LP 7 -->
+    <a href="AB_7_Dienste.html" class="lp-card"
+       style="--card-accent:var(--c7); --card-accent-dim:var(--c7d);">
+      <div class="lp-card-head">
+        <span class="lp-number">LP 7</span>
+        <span class="lp-icon">🖥️</span>
+        <span class="lp-title">Dienste</span>
+      </div>
+      <p class="lp-desc">Systemdienste verstehen und einen eigenen Logging-Dienst schreiben.</p>
+      <div class="lp-topics">
+        <span class="topic-chip">systemctl</span>
+        <span class="topic-chip">journalctl</span>
+      </div>
+      <div class="lp-footer">
+        <span class="lp-auftraege">3 Arbeitsaufträge</span>
+        <span class="lp-go">Öffnen →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="footer">
+    Informatik 12 eA · Betriebssysteme · Linux
+  </div>
+
+  <script src="lernpfad.js"></script>
+</body>
+</html>
