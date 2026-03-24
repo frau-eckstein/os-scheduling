@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informatik 12 · Lernpaket 6 · Rechteverwaltung</title>
+<link rel="stylesheet" href="styles.css">
+  <style>
+  :root {
+    --accent: #5b9cf6; --accent-dim: #1a2f55;   /* blue */
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="nav-bar">
+    <a href="index.html" class="nav-home" title="Zur Startseite">🏠</a>
+    <span class="nav-label">LP:</span>
+    <a href="AB_1_Linux_kennenlernen.html" class="nav-btn">LP 1</a>
+    <a href="AB_2_Linux_Terminal.html" class="nav-btn">LP 2</a>
+    <a href="AB_3_Linux_Kernel.html" class="nav-btn">LP 3</a>
+    <a href="AB_4_Scheduling.html" class="nav-btn">LP 4</a>
+    <a href="AB_5_Benutzerverwaltung.html" class="nav-btn">LP 5</a>
+    <a href="AB_6_Rechteverwaltung.html" class="nav-btn active">LP 6</a>
+    <a href="AB_7_Dienste.html" class="nav-btn">LP 7</a>
+    <span class="nav-spacer"></span>
+    <a href="AB_5_Benutzerverwaltung.html" class="nav-arrow">← LP 5</a>
+    <a href="AB_7_Dienste.html" class="nav-arrow">LP 7 →</a>
+  </nav>
+
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-icon">🔑</div>
+    <div class="header-meta">
+      <div class="header-tag">Informatik 12 · Betriebssysteme</div>
+      <div class="header-title">Lernpaket 6 · Rechteverwaltung</div>
+      <div class="header-sub">chmod · chown · Sticky-Bit · Setuid · ACLs</div>
+    </div>
+    <div class="badge">LP 6</div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section">
+    <div class="section-title">📂 1 · Grundlegende Rechteverwaltung unter Linux</div>
+    <p>Linux bildet fast alles als Datei ab (<em>„Everything is a file"</em>). Für jede Datei und jedes Verzeichnis ist ein <strong>Besitzer</strong> (owner) und eine <strong>Benutzergruppe</strong> festgelegt. Zugriffsrechte werden auf drei Ebenen verwaltet:</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;margin:1rem 0;">
+      <div style="background:var(--bg);border:1.5px solid var(--blue);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:0.3rem;">👤</div>
+        <div style="font-size:0.8rem;font-weight:800;color:var(--blue);margin-bottom:0.3rem;">user</div>
+        <div style="font-size:0.75rem;color:var(--text-dim);">Berechtigungen des Besitzers</div>
+      </div>
+      <div style="background:var(--bg);border:1.5px solid var(--yellow);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:0.3rem;">👥</div>
+        <div style="font-size:0.8rem;font-weight:800;color:var(--yellow);margin-bottom:0.3rem;">group</div>
+        <div style="font-size:0.75rem;color:var(--text-dim);">Berechtigungen der Gruppe</div>
+      </div>
+      <div style="background:var(--bg);border:1.5px solid var(--text-dim);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:0.3rem;">🌐</div>
+        <div style="font-size:0.8rem;font-weight:800;color:var(--text-dim);margin-bottom:0.3rem;">all (others)</div>
+        <div style="font-size:0.75rem;color:var(--text-dim);">Berechtigungen aller anderen</div>
+      </div>
+    </div>
+
+    <p>Für jede Ebene gibt es drei Rechte:</p>
+
+    <div class="perm-grid">
+      <div></div>
+      <div class="perm-header" style="text-align:center;">📖 read (r)</div>
+      <div class="perm-header" style="text-align:center;">✏️ write (w)</div>
+      <div class="perm-header" style="text-align:center;">▶️ execute (x)</div>
+
+      <div class="perm-row-label">👤 user</div>
+      <div class="perm-cell"><span class="perm-on">r</span></div>
+      <div class="perm-cell"><span class="perm-on">w</span></div>
+      <div class="perm-cell"><span class="perm-on">x</span></div>
+
+      <div class="perm-row-label">👥 group</div>
+      <div class="perm-cell"><span class="perm-on">r</span></div>
+      <div class="perm-cell"><span class="perm-off">-</span></div>
+      <div class="perm-cell"><span class="perm-on">x</span></div>
+
+      <div class="perm-row-label">🌐 others</div>
+      <div class="perm-cell"><span class="perm-on">r</span></div>
+      <div class="perm-cell"><span class="perm-off">-</span></div>
+      <div class="perm-cell"><span class="perm-off">-</span></div>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-1"></div><div class="dot dot-2"></div><div class="dot dot-3"></div>
+        <span class="terminal-label">Rechte anzeigen und ändern</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> <span class="cmd">ls -lh /etc</span></div>
+        <div class="output">-rw-r--r-- 1 root root  2,8K Jan  1 passwd</div>
+        <div class="output">-rw-r----- 1 root shadow 1,5K Jan  1 shadow</div>
+        <div style="margin-top:0.5rem"><span class="prompt">$</span> <span class="cmd">chmod 750 datei.txt</span> <span class="output">&nbsp;&nbsp;&nbsp;# rwxr-x--- setzen</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">chown user:group datei.txt</span> <span class="output">&nbsp;# Besitzer/Gruppe ändern</span></div>
+      </div>
+    </div>
+
+    <div class="info-box info-cyan">
+      <span class="info-icon">💡</span>
+      <div><strong>chmod-Syntax:</strong> Zahlen stehen für Oktal-Werte: <code>r=4</code>, <code>w=2</code>, <code>x=1</code>. Beispiel: <code>chmod 754</code> = <em>rwxr-xr--</em> (user: 7=rwx, group: 5=rx, others: 4=r). Alternativ: <code>chmod u+x datei</code> fügt dem Besitzer das Ausführungsrecht hinzu.</div>
+    </div>
+  </div>
+
+  <!-- Task 1 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 1</span>
+      <span class="task-title-text">Zugriffsrechte verstehen und anwenden 🔐</span>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-pink">a)</span>
+      <p>Begründe anhand einer <strong>selbst gewählten Beispielsituation</strong>, weshalb es sinnvoll ist, zwischen dem Recht zum <em>Lesen</em> und zum <em>Ausführen</em> einer Datei zu unterscheiden. 💡 Tipp: Denke an Programmdateien vs. Dokumentdateien.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-pink">b)</span>
+      <p>Bei Verzeichnissen hat <code>x</code> eine abweichende Bedeutung. <strong>Recherchiere</strong> diese und erkläre, wann die Kombination <em>„x aber kein r"</em> oder <em>„r aber kein x"</em> in der Praxis sinnvoll sein kann.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-pink">c)</span>
+      <p>Zeige mit <span class="operator">ls -lh /etc</span> den Inhalt des Verzeichnisses <code>/etc</code> an. Beschreibe, wie die Ausgabe Zugriffsrechte darstellt. Betrachte dabei besonders die Dateien <code>passwd</code>, <code>group</code> und <code>shadow</code> und erkläre so die Beobachtungen aus LP5.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-pink">d)</span>
+      <p>Lerne die Befehlssyntax von <span class="operator">chmod</span> und lege verschiedene Beispieldateien mit unterschiedlichen Rechten an. Versuche auch eine Datei zu erzeugen, auf die <em>„niemand"</em> Zugriff hat. Untersuche anschließend, wie <code>root</code> in das Rechteverwaltungssystem einzuordnen ist.</p>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section">
+    <div class="section-title section-title-purple">⚙️ 2 · Erweiterte Rechteverwaltung</div>
+    <p>Neben den grundlegenden Rechten gibt es zusätzliche Mechanismen für Sonderfälle:</p>
+
+    <table class="bits-table">
+      <thead><tr><th>🔧 Mechanismus</th><th>📋 Kurzbeschreibung</th></tr></thead>
+      <tbody>
+        <tr><td>Sticky-Bit</td><td>Bei Verzeichnissen: Nutzer können nur eigene Dateien löschen (z. B. <code>/tmp</code>)</td></tr>
+        <tr><td>Setuid-Bit</td><td>Programm wird mit den Rechten des <em>Besitzers</em> ausgeführt, nicht des Aufrufers</td></tr>
+        <tr><td>Setgid-Bit</td><td>Programm/Verzeichnis erbt die Gruppe des Besitzers</td></tr>
+        <tr><td>ACLs</td><td>Fein granulare Rechtevergabe für einzelne Nutzer/Gruppen jenseits des Grundmodells</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Task 2 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t2">ARBEITSAUFTRAG 2</span>
+      <span class="task-title-text">Erweiterte Rechteverwaltung erforschen 🧩</span>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-purple">a)</span>
+      <p>Finde eigenständig heraus und beschreibe:<br>
+        &nbsp;• Welche Auswirkungen hat das Setzen der <strong>Sticky-, Setuid- und Setgid-Bits</strong> für Dateien und Verzeichnisse?<br>
+        &nbsp;• Mit welchen <strong>Terminalbefehlen</strong> werden diese Bits gesetzt und wieder entfernt?<br>
+        &nbsp;• In welchen <strong>Alltagssituationen</strong> ist ihre Verwendung sinnvoll?</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-purple">b)</span>
+      <p><strong>Für Profis</strong><span class="profi-badge">⭐ PROFI</span>: Informiere dich über <strong>Access Control Lists (ACLs)</strong> unter Linux und bereite (ggf. als Kleingruppe) ein Kurzreferat vor, das das Konzept anschaulich darstellt und motiviert.</p>
+    </div>
+
+    <div class="info-box info-orange">
+      <span class="info-icon">🔍</span>
+      <div><strong>Tipp – Setuid in freier Wildbahn:</strong> Führe <code>ls -lh /usr/bin/passwd</code> aus. Du wirst ein <code>s</code> statt <code>x</code> im Besitzerfeld sehen – das ist das Setuid-Bit in der Praxis! Überlege, warum das dort sinnvoll ist.</div>
+    </div>
+  </div>
+
+</div>
+  <script src="lernpfad.js"></script>
+</body>
+</html>

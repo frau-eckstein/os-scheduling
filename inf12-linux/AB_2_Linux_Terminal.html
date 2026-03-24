@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informatik 12 · 2 · Linux Terminal</title>
+<link rel="stylesheet" href="styles.css">
+  <style>
+  :root {
+    --accent: #22d3ee; --accent-dim: #0a3040;   /* cyan */
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="nav-bar">
+    <a href="index.html" class="nav-home" title="Zur Startseite">🏠</a>
+    <span class="nav-label">LP:</span>
+    <a href="AB_1_Linux_kennenlernen.html" class="nav-btn">LP 1</a>
+    <a href="AB_2_Linux_Terminal.html" class="nav-btn active">LP 2</a>
+    <a href="AB_3_Linux_Kernel.html" class="nav-btn">LP 3</a>
+    <a href="AB_4_Scheduling.html" class="nav-btn">LP 4</a>
+    <a href="AB_5_Benutzerverwaltung.html" class="nav-btn">LP 5</a>
+    <a href="AB_6_Rechteverwaltung.html" class="nav-btn">LP 6</a>
+    <a href="AB_7_Dienste.html" class="nav-btn">LP 7</a>
+    <span class="nav-spacer"></span>
+    <a href="AB_1_Linux_kennenlernen.html" class="nav-arrow">← LP 1</a>
+    <a href="AB_3_Linux_Kernel.html" class="nav-arrow">LP 3 →</a>
+  </nav>
+
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-icon">⌨️</div>
+    <div class="header-meta">
+      <div class="header-tag">Informatik 12 · Betriebssysteme</div>
+      <div class="header-title">2 · Arbeiten mit dem Linux-Terminal</div>
+      <div class="header-sub">Grundlagen der Terminalbedienung</div>
+    </div>
+    <div class="badge">LP 2</div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section">
+    <div class="section-title">📂 2.1 · Grundlagen der Terminalbedienung</div>
+    <p>Öffnen Sie das Terminal z. B. mit <kbd style="background:var(--surface2);border:1px solid var(--border);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:0.8rem;">Strg+Alt+T</kbd> oder über das Anwendungsmenü. Es öffnet sich ein Fenster mit einem Cursor, welcher die aktuelle Eingabeposition markiert. <br>
+      Die Bedienung des Terminals erfolgt in der Regel <strong>ausschließlich per Tastatur</strong>. In die Eingabezeile können verschiende Befehle eingetippt werden. Sobald man die Enter-Taste <kbd style="background:var(--surface2);border:1px solid var(--border);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.8rem;">Enter</kbd> drückt wird der eingegebene Befehl ausgeführt und dessen Ausgabe im Terminal angezeigt.</p>
+    <p>Das Terminal arbeitet dabei stets in einem sogenannten <strong>Arbeitsverzeichnis</strong> (ein Verzeichnis im Dateisystem des Rechners). 
+      Startet man ein neues Terminal befindet man sich meist im persönlichen Verzeichnis des angemeldeten Benutzers <code style="font-family:var(--mono);color:var(--green)">/home/benutzername</code>.</p>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-red"></div>
+        <div class="dot dot-yellow"></div>
+        <div class="dot dot-green"></div>
+        <span class="terminal-label">hsg@hsg-HP-ProBook-650-G4: ~</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">hsg@hsg-HP-ProBook-650-G4:~$</span> <span class="cmd">pwd</span></div>
+        <div class="output">/home/hsg</div>        
+      </div>
+    </div>
+
+    <p>Durch entsprechende Befehle kann das Arbeitsverzeichnis jederzeit gewechselt werden.</p>
+    <p>Nachfolgend werden einige der wichtigsten Befehle erklärt:</p>
+
+    <table class="cmd-table">
+      <thead><tr><th>🔧 Befehl</th><th>📋 Funktion</th></tr></thead>
+      <tbody>
+        <tr><td>pwd</td><td>Zeigt den Pfad des aktuellen Arbeitsverzeichnisses an</td></tr>
+        <tr><td>ls -lh</td><td>Listet den Inhalt des aktuellen Verzeichnisses auf (detailliert)</td></tr>
+        <tr><td>cd xxx</td><td>Wechselt in das Verzeichnis <em>xxx</em></td></tr>
+        <tr><td>cd ~</td><td>Wechselt ins Home-Verzeichnis</td></tr>
+        <tr><td>cd ..</td><td>Wechselt ins übergeordnete Verzeichnis</td></tr>        
+        <tr><td>mkdir xxx</td><td>Erstellt ein neues Verzeichnis <em>xxx</em></td></tr>
+        <tr><td>rmdir xxx</td><td>Löscht ein (leeres!) Verzeichnis <em>xxx</em></td></tr>
+        <tr><td>cp xxx yyy</td><td>Kopiert die Datei <em>xxx</em> nach <em>yyy</em></td></tr>
+        <tr><td>echo "Hallo"</td><td>Gibt den Text <em>Hallo</em> im Terminal aus</td></tr>
+        <tr><td>echo "Hallo" &gt; xxx</td><td>Schreibt <em>Hallo</em> in die Datei <em>xxx</em> (überschreibt!)</td></tr>
+        <tr><td>cat xxx</td><td>Gibt den Inhalt der Datei <em>xxx</em> im Terminal aus</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Task 1 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 1</span>
+      <span class="task-title-text">Dateisystemstruktur erkunden</span>
+    </div>
+    <p style="margin-bottom:1rem;color:var(--text-dim)">Verwenden Sie die Befehle <span class="operator">cd</span> <span class="operator">ls -lh</span> <span class="operator">pwd</span> und <span class="operator">cat</span> um sich einen Überblick über die Dateisystemstruktur zu verschaffen.</p>
+
+    <div class="subtask">
+      <span class="subtask-label sl-cyan"">a)</span>
+      <p>Geben Sie die Namen aller Verzeichnisse direkt unterhalb der <strong>Wurzelebene</strong> (Pfad <code style="font-family:var(--mono);color:var(--green)">'/'</code>) an.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-cyan">b)</span>
+      <p>Die Verzeichnisse aus a) haben größtenteils "sprechende Namen", d. h. in ihren Namen verbirgt sich ein Verwendungszweck bzw. die Art der enthaltenen Dateien. 
+        Stellen Sie für <strong>mindestens drei</strong> der Verzeichnisse eine Hypothese auf, welchem Zweck das jeweilige Verzeichnis dient.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-cyan">c)</span>
+      <p>Legen Sie in Ihrem Benutzerverzeichnis eine <strong>sinnvolle Verzeichnisstruktur</strong> zum Organisieren von Schulmaterialien an.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-cyan">d)</span>
+      <p>Installieren Sie das Programm <strong>tree</strong> mit <kbd style="background:var(--surface2);border:1px solid var(--border);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:0.8rem;">sudo apt-get install tree</kbd>.<br>
+       Wechseln Sie anschließend direkt in Ihr Benutzerverzeichnis und führen Sie den Befehl <span class="operator">tree</span> aus. Beschreiben Sie, welche Funktionalität dieser Befehl bietet.</p>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section">
+    <div class="section-title">📝 2.2 · Textdateien und Programmcode im Terminal bearbeiten</div>
+    <p>Im Terminal können auch Programme ausgeführt werden.</p>
+    <p>Mit dem Befehl <code style="font-family:var(--mono);color:var(--yellow)">nano beispiel.txt</code> kann beispielsweise ein interaktiver Texteditor gestartet und darin die Datei <em>beispiel.txt</em> (aus dem aktuellen Arbeitsverzeichnis) geöffnet werden.</p> 
+    <p>Die Bedienung erfolgt ebenfalls allein per Tastatur. Der gewünschte Text kann an der aktuellen Cursorposition direkt eingetippt werden.<br>
+      Wichtige Shortcuts sind am unteren Rand eingeblendet:</p>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
+        <span class="terminal-label">GNU nano – beispiel.txt</span>
+      </div>
+      <div class="terminal-body" style="font-size:0.78rem;">
+        <div style="color:#5b9cf6">^G Hilfe &nbsp;&nbsp; ^O Speichern &nbsp;&nbsp; ^W Wo ist &nbsp;&nbsp; ^K Ausschneiden &nbsp;&nbsp; ^T Ausführen</div>
+        <div style="color:#5b9cf6">^X Beenden &nbsp;&nbsp; ^R Öffnen &nbsp;&nbsp; ^\ Ersetzen &nbsp;&nbsp; ^U Einfügen &nbsp;&nbsp; ^J Ausrichten</div>
+      </div>
+    </div>
+
+    <p>Dabei steht die Darstellung <code style="font-family:var(--mono);color:var(--yellow)">^X</code> zum Beenden des Editors für <kbd style="background:var(--surface2);border:1px solid var(--border);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.8rem;">Strg</kbd>+<kbd style="background:var(--surface2);border:1px solid var(--border);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.8rem;">X</kbd>, während zum Speichern der aktuellen Datei <kbd style="background:var(--surface2);border:1px solid var(--border);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.8rem;">Strg</kbd>+<kbd style="background:var(--surface2);border:1px solid var(--border);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.8rem;">O</kbd> gedrückt werden muss.</p>
+
+    <p>Auch eigene <strong>Java-</strong> oder <strong>Python-Programme</strong> können im Terminal ausgeführt werden.
+      Während Python standardmäßig integriert ist, muss für Java zunächst das JDK installiert werden:</p>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
+        <span class="terminal-label">Java installieren</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> <span class="cmd">sudo apt update</span> <span class="output">&nbsp;&nbsp;&nbsp;# Prüfe, ob Updates vorhanden sind</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">sudo apt upgrade</span> <span class="output">&nbsp;&nbsp;&nbsp;# Installiere Updates ggf.; mit J bestätigen, um fortzufahren</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">sudo apt install openjdk-11-jdk</span> <span class="output">&nbsp;&nbsp;&nbsp;# openjdk für Java herunterladen und installieren</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">java -version</span> <span class="output">&nbsp;&nbsp;&nbsp;# aktuelle Java-Version anzeigen</span></div>
+        <div></div>
+        <div style="margin-top:0.5rem"><span class="prompt">$</span> <span class="cmd">javac Dateiname.java</span> <span class="output">&nbsp;# Kompilieren</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">java Dateiname</span> <span class="output">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Ausführen</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Task 2 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 2</span>
+      <span class="task-title-text">Java-Programm im Terminal schreiben</span>
+    </div>
+    <p style="margin-bottom:1rem;color:var(--text-dim)">Verwenden Sie <strong>ausschließlich das Terminal</strong>, um ein kleines Java-Programm zu schreiben und anschließend zu testen.</p>
+
+    <div class="subtask">
+      <span class="subtask-label sl-cyan">a)</span>
+      <p>Nutzen Sie den Texteditor <span class="operator">nano</span> um eine Datei <code style="font-family:var(--mono);color:var(--yellow)">Testprogramm.java</code> im Benutzerverzeichnis anzulegen und zu bearbeiten.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-cyan">b)</span>
+      <p><strong>Recherchieren Sie</strong> (falls notwendig), was man unter sogenannten <em>Kommandozeilenparametern</em> versteht und wie diese in Java eingelesen werden können.<br>
+      <strong>Schreiben Sie</strong> ein Programm, das einen beliebigen Text als Kommandozeilenparameter erhält und diesen in <strong>umgekehrter Buchstabenreihenfolge</strong> wieder ausgibt.</p>
+    </div>
+
+    <div class="info-box info-yellow">
+      <span class="info-icon">💡</span>
+      <div>
+        <strong>Hinweis zu Kommandozeilenparametern:</strong> <br> 
+        Alles, was nach dem Programmnamen beim Aufruf steht, landet im Array <code style="font-family:var(--mono)">args[]</code> der <code style="font-family:var(--mono)">main</code>-Methode. Mit <code style="font-family:var(--mono)">args[0]</code> greifst du auf den ersten Parameter zu.
+      </div>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-cyan">c)</span>
+      <p><strong>Speichern</strong> und <strong>testen Sie</strong> das Programm aus b).</p>
+    </div>
+
+    
+  </div>
+
+</div>
+  <script src="lernpfad.js"></script>
+</body>
+</html>

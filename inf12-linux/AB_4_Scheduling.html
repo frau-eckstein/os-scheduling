@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informatik 12 · 4 · Scheduling</title>
+<link rel="stylesheet" href="styles.css">
+  <style>
+  :root {
+    --accent: #f472b6; --accent-dim: #3d0d28;   /* pink */
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="nav-bar">
+    <a href="index.html" class="nav-home" title="Zur Startseite">🏠</a>
+    <span class="nav-label">LP:</span>
+    <a href="AB_1_Linux_kennenlernen.html" class="nav-btn">LP 1</a>
+    <a href="AB_2_Linux_Terminal.html" class="nav-btn">LP 2</a>
+    <a href="AB_3_Linux_Kernel.html" class="nav-btn">LP 3</a>
+    <a href="AB_4_Scheduling.html" class="nav-btn active">LP 4</a>
+    <a href="AB_5_Benutzerverwaltung.html" class="nav-btn">LP 5</a>
+    <a href="AB_6_Rechteverwaltung.html" class="nav-btn">LP 6</a>
+    <a href="AB_7_Dienste.html" class="nav-btn">LP 7</a>
+    <span class="nav-spacer"></span>
+    <a href="AB_3_Linux_Kernel.html" class="nav-arrow">← LP 3</a>
+    <a href="AB_5_Benutzerverwaltung.html" class="nav-arrow">LP 5 →</a>
+  </nav>
+
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-icon">⏱️</div>
+    <div class="header-meta">
+      <div class="header-tag">Informatik 12 · Betriebssysteme</div>
+      <div class="header-title">4 · Scheduling</div>
+      <div class="header-sub">Laufzeitanalyse · Signale</div>
+    </div>
+    <div class="badge">LP 4</div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section">
+    <div class="section-title">📊 4.1 · Laufzeitanalyse</div>
+    <p>Für den folgenden Arbeitsauftrag sollen zwei eigentlich unabhängige Werkzeuge kombiniert werden:</p>
+
+    <p><strong>🔧 /usr/bin/time</strong><br> 
+      – "beobachtet" die Ausführung eines Programms und gibt anschließend Ausführungsstatistiken aus. Mit <span class="operator">-v</span> erhält man besonders ausführliche Ausgaben.</p>
+    <p><strong>💥 stress</strong><br>
+      – belastet das System künstlich für Testzwecke das System auf verschiedene Art und Weise. So kann leicht analysiert werden, wie sich das System unter Last verhält. </p>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
+        <span class="terminal-label">Beispielaufrufe: stress</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> <span class="cmd">stress --cpu 1 -t 3s</span> <span class="output">&nbsp;&nbsp;# CPU für 3s maximal auslasten</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">stress --vm 1 -t 3s</span> <span class="output">&nbsp;&nbsp;&nbsp;# möglichst viele Speicherzugriffe für 3s</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">stress --help</span> <span class="output">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# genauere Erklärung der Parameter</span></div>
+      </div>
+    </div>
+
+    
+  </div>
+
+  <!-- Task 1 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 1</span>
+      <span class="task-title-text">Laufzeiten messen und vergleichen</span>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-pink">a)</span>
+      <p>Kombinieren Sie die Befehle <span class="operator">time</span> und <span class="operator">stress</span> wie folgt:<br> 
+        <code style="font-family:var(--mono);color:var(--pink)">/usr/bin/time -v stress --cpu 1 -t 3s</code> <br>
+        Analysieren und vergleichen Sie anschließend in der Ausgabe die Angaben zu:</p>      
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon">👤</div>
+        <div class="metric-name">User time</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">⚙️</div>
+        <div class="metric-name">System time</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">🕐</div>
+        <div class="metric-name">Wall clock time</div>
+      </div>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-pink">b)</span>
+      <p>Wiederholen Sie den Versuch aus a) mehrere Male und variieren Sie dabei die Art der Belastung (CPU vs. Speicher) sowie die Anzahl der Threads. Beobachten Sie dabei, wie sich die oben genannten Zeitangaben verändern und versuchen Sie die Beobachtungen zu erklären.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-pink">c)</span>
+      <p>Sehen Sie sich erneut die Ausgaben von b) an und achten Sie dieses Mal auf die Angaben "Voluntary context switches" und "Involuntary context switches". Definieren Sie kurz, was unter diesen Angaben zu verstehen ist und versuchen Sie auch hier eine Erklärung für das Zustandekommen der unterschiedlichen Ergebnisse zu formulieren.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-pink">d)</span>
+      <p>Versuchen Sie selbst je ein Testprogramm zu schreiben, welches ca. 3-5 Sekunden läuft und dabei einmal möglichst wenig und einmal möglichst viel Ausführungszeit im Kernel Mode ("System time") verbringt. Erläutern Sie kurz, mit welcher Strategie Ihre Testprogramme dieses Ziel erreichen sollen.</p>      
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-pink">⭐</span>
+      <p>Versuchen Sie die Bedeutung der übrigen Ausgaben von <span class="operator">/usr/bin/time</span> zu erschließen und recherchieren Sie, falls notwendig. Erläutern Sie basierend darauf allgemein, für welche Zwecke die Ausgaben hilfreich sein können.</p>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section">
+    <div class="section-title">📡 4.2 · Prozesszustände mit Signalen beeinflussen</div>
+    <p>Über sogenannte <strong>Signale</strong> können bei Linux bestimmte Systemnachrichten über das Betriebssystem an einen Prozess gesendet werden.</p>
+
+    <div class="link-box">
+      🔗 <a href="https://de.wikipedia.org/wiki/Signal_(Unix)" target="_blank">Liste der Unix-Signale (Wikipedia)</a>
+    </div>
+  </div>
+
+  <!-- Task 2 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 2</span>
+      <span class="task-title-text">Prozesse mit Signalen steuern</span>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-pink" >a)</span>
+      <p><strong>Recherchieren Sie</strong> welcher Bedeutungsunterschied zwischen den drei (vom Namen her ähnlichen) Signalen <code style="font-family:var(--mono)">SIGSTOP</code>, <code style="font-family:var(--mono)">SIGTERM</code> und <code style="font-family:var(--mono)">SIGKILL</code> besteht und fassen Sie Ihre Ergebnisse stichpunktartig zusammen.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-pink" >b)</span>
+      <p>Schreiben Sie ein Testprogramm, welches in einer Endloswiederholung einen beliebigen Text im Terminal ausgibt und zwischen den Ausgaben je eine Sekunde abwartet. Starten Sie das Programm anschließend in einem <strong>separaten</strong> Terminalfenster.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-pink" >c)</span>
+      <p>Nutzen Sie (während das Programm aus b) im Terminalfenster läuft) in einem <strong>zweiten Terminalfenster</strong> den Befehl <span class="operator">ps -u user a</span> und suchen Sie in der Prozessliste die <strong>PID</strong> des laufenden Testprogramms heraus.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-pink" >d)</span>
+      <p>Um spezifische Signale an einen Prozess zu senden kann der Befehl <code style="font-family:var(--mono)">kill</code> verwendet werden.
+        Informieren Sie sich mit <span class="operator">kill --help</span> über dessen Verwendung und senden Sie anschließend das Signal <code style="font-family:var(--mono)">SIGSTOP</code> an den Prozess des Testprogramms. 
+        Beobachten Sie (im ersten Terminalfenster) wie dies den Programmablauf beeinflusst und führen Sie im zweiten Terminalfenster erneut <span class="operator">ps -u user a</span> aus und vergleichen Sie hier insbesondere die <strong>STAT-Spalte</strong> mit dem ersten Aufruf des ps-Befehls.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-pink" >e)</span>
+      <p>Suchen Sie in der oben verlinkten Signalliste nach einem geeigneten Signal, um die Auswirkung des in d) gesendeten <code style="font-family:var(--mono)">SIGSTOP</code> rückgängig zu machen. Überprüfen Sie durch Ausprobieren, ob dies wie gewünscht funktioniert.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-pink" >f)</span>
+      <p><strong>Recherchieren Sie</strong> allgemein die Bedeutung der unterschiedlichen Kürzel in der <strong>STAT-Spalte</strong> des <span class="operator">ps</span>-Befehls.</p>
+    </div>
+
+    <div class="info-box info-teal">
+      <span class="info-icon">💡</span>
+      <div><strong>Tipp – Zwei Terminals parallel nutzen:</strong><br> 
+        Öffnen Sie zwei Terminalfenster nebeneinander, wobei im <strong>linken</strong> das Testprogramm läuft und im <strong>rechten</strong> Signale gesendet und der Prozessstatus mit <code style="font-family:var(--mono)">ps</code> beobachtet wird.</div>
+    </div>
+  </div>
+
+</div>
+  <script src="lernpfad.js"></script>
+</body>
+</html>

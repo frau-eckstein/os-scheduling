@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informatik 12 · 1 · Linux kennenlernen</title>
+<link rel="stylesheet" href="styles.css">
+  <style>
+  :root {
+    --accent: #5b9cf6; --accent-dim: #1a2f55;   /* blue */
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="nav-bar">
+    <a href="index.html" class="nav-home" title="Zur Startseite">🏠</a>
+    <span class="nav-label">LP:</span>
+    <a href="AB_1_Linux_kennenlernen.html" class="nav-btn active">LP 1</a>
+    <a href="AB_2_Linux_Terminal.html" class="nav-btn">LP 2</a>
+    <a href="AB_3_Linux_Kernel.html" class="nav-btn">LP 3</a>
+    <a href="AB_4_Scheduling.html" class="nav-btn">LP 4</a>
+    <a href="AB_5_Benutzerverwaltung.html" class="nav-btn">LP 5</a>
+    <a href="AB_6_Rechteverwaltung.html" class="nav-btn">LP 6</a>
+    <a href="AB_7_Dienste.html" class="nav-btn">LP 7</a>
+    <span class="nav-spacer"></span>    
+    <a href="AB_2_Linux_Terminal.html" class="nav-arrow">LP 2 →</a>
+  </nav>
+
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-icon">🐧</div>
+    <div class="header-meta">
+      <div class="header-tag">Informatik 12 · Betriebssysteme</div>
+      <div class="header-title">1 · Linux kennenlernen</div>
+      <div class="header-sub">Linux als Betriebssystem · Dateiverwaltung · Desktop Environment</div>
+    </div>
+    <div class="badge">LP 1</div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section">
+    <div class="section-title">🚀 1.1 · Das System starten und kennenlernen</div>
+    <p>Ubuntu begrüßt nach dem Start mit dem <strong>GNOME-Desktop</strong>, einer grafischen Benutzeroberfläche mit Aktivitätenübersicht, Anwendungsmenü und Systemleiste. 
+      Vieles davon ist bereits aus anderen Betriebssystemen bekannt – manches ist anders.</p>    
+  </div>
+
+  <!-- Task 1 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 1</span>
+      <span class="task-title-text">Linux-Distribution erkunden</span>
+    </div>
+    <p style="color:var(--text-dim);margin-bottom:1rem;">Arbeiten Sie sich eigenständig in die grundlegende Bedienung von Ubuntu ein. Finden Sie dabei insbesondere heraus …</p>
+
+    <div class="subtask">
+      <p>… wie man das System <strong>neustartet</strong> bzw. <strong>herunterfährt</strong>.</p>
+    </div>
+    <div class="subtask">
+      <p>… wie man den <strong>aktuell angemeldeten Benutzer abmelden</strong> kann und anschließend wieder zum Anmeldebildschirm gelangt.</p>
+    </div>
+    <div class="subtask">
+      <p>… wie man <strong>installierte Programme findet und startet</strong>.</p>
+    </div>
+    <div class="subtask">
+      <p>… über wie viel <strong>Arbeitsspeicher</strong> und wie viele <strong>CPU-Kerne</strong> das System verfügt.</p>
+    </div>
+
+    <div class="info-box info-cyan">
+      <span class="info-icon">💡</span>
+      <div><strong>Terminal öffnen:</strong><br>Drücken Sie <kbd style="background:var(--surface2);border:1px solid var(--border);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.8rem;">Strg+Alt+T</kbd> oder suchen Sie nach „Terminal" in der Aktivitätenübersicht.</div>
+    </div>
+  </div>
+
+  <!-- Task 2 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 2</span>
+      <span class="task-title-text">Vergleich mit anderen Betriebssystemen</span>
+    </div>
+    <p style="color:var(--text-dim);margin-bottom:1rem;">
+      Vergleichen Sie Erscheinungsbild, Funktionsumfang und Bedienung des Linux-Betriebssystems mit einem von Ihnen privat genutzten Betriebssystem (z. B. Windows, macOS, Android, …).</p>    
+
+    <div class="subtask" style="margin-top:0.8rem;">
+      <span class="subtask-label sl-cyan">📝</span>
+      <p>Erstellen Sie darauf aufbauend eine stichpunktartige Gegenüberstellung mit Gemeinsamkeiten und Unterschieden.</p>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section">
+    <div class="section-title">📁 1.2 · Dateiverwaltung unter Linux</div>
+    <p>Eine wichtige Aufgabe jedes Betriebssystems ist die <strong>Verwaltung des Hintergrundspeichers</strong>. 
+      Unter Linux gibt es dafür verschiedene grafische Programme, sogenannte <em>Dateimanager</em>. <br>
+      Jede Distribution bringt in der Regel einen eigenen mit, z. B.:</p>
+
+    <div class="fm-grid">
+      <div class="fm-card">
+        <div class="fm-name">📂 Nemo</div>
+      </div>
+      <div class="fm-card">
+        <div class="fm-name">📂 Dolphin</div>
+      </div>
+      <div class="fm-card">
+        <div class="fm-name">📂 Thunar</div>
+      </div>
+      <div class="fm-card">
+        <div class="fm-name">📂 Nautilus</div>
+      </div>
+    </div>
+
+    <div class="info-box info-yellow">
+      <span class="info-icon">💡</span>
+      <div><strong>Dateimanager nutzen oder installieren:</strong><br> 
+        Dateimanager können im Terminal einfach mit dem jeweiligen Namen gestartet werden.<br>
+        Falls ein Dateimanager noch nicht installiert ist, kann er mit <span class="operator">sudo apt install ...</span> nachinstalliert werden. </div>
+    </div>
+  </div>
+
+  <!-- Task 3 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 3</span>
+      <span class="task-title-text">Dateimanager erkunden und vergleichen</span>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-blue">a)</span>
+      <p>Ermitteln Sie den Standard-Dateimanager von GNOME, indem Sie versuchen, die o. g. Dateimanager über das Terminal zu starten.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-blue">b)</span>
+      <p>Starten Sie nun alle genannten Programme <strong>Nemo</strong>, <strong>Dolphin</strong>, <strong>Thunar</strong> und <strong>Nautilus</strong>. Falls ein Programm fehlt, installieren Sie es zuerst.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-blue">c)</span>
+      <p>Vergleichen Sie die genannten Programme hinsichtlich <strong>Erscheinungsbild</strong> und <strong>Funktionsumfang</strong>.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-blue">d)</span>
+      <p><strong>Diskutieren Sie</strong>, inwieweit folgende Aussage zutrifft:</p>
+      <p style="margin-top:0.5rem;padding:0.6rem 0.9rem;background:var(--surface2);border-left:3px solid var(--purple);border-radius:0 6px 6px 0;font-style:italic;font-size:0.88rem;">
+        „Die oben genannten Programme sind Teil des Betriebssystemkerns, da sie unter Linux die Aufgabe der Verwaltung des Hintergrundspeichers übernehmen."
+      </p>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section">
+    <div class="section-title">🖼️ 1.3 · Desktop Environments</div>
+    <p>Unter Linux ist die grafische Benutzeroberfläche kein fester Bestandteil des Systems, sondern ein austauschbares Zusatzprogramm, das sogenannte <strong>Desktop Environment (DE)</strong>, wie z. B.:</p>
+    
+    <div class="de-grid">
+      <span class="de-chip de-1">GNOME</span>
+      <span class="de-chip de-2">KDE Plasma</span>
+      <span class="de-chip de-3">Cinnamon</span>
+      <span class="de-chip de-4">Xfce</span>
+      <span class="de-chip de-5">MATE</span>
+    </div>
+    <p>Dabei können auch mehrere parallel installiert sein.</p>
+
+    <div class="info-box info-orange">
+      <span class="info-icon">⚠️</span>
+      <div><strong>Hinweis:</strong><br> 
+        Das Installieren mehrerer Desktop Environments kann viele Pakete und mehrere hundert MB Speicherplatz benötigen, daher wird hier darauf verzichtet.
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- Task 4 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 4</span>
+      <span class="task-title-text">Desktop Environments vergleichen und einordnen</span>
+    </div>
+    <p style="color:var(--text-dim);margin-bottom:1rem;">Recherchieren Sie zu <strong>mindestens drei verschiedenen Desktop Environments</strong>.</p>
+
+    <div class="subtask">
+      <span class="subtask-label sl-blue">a)</span>
+      <p>Beschreiben Sie, worin sich die Desktop Environments <strong>unterscheiden</strong>.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-blue">b)</span>
+      <p>Desktop Environments werden teils für bestimmte <strong>Einsatzszenarien</strong> entwickelt (z. B. Touchscreen-Bedienung, sehr alte/schwache Hardware, ...).<br> 
+        Erläutern Sie für <strong>zwei Desktop Environments</strong> Ihrer Wahl, für welchen Einsatzkontext diese vermutlich entworfen wurden.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-blue">c)</span>
+      <p><strong>Diskutieren Sie</strong> analog zu Arbeitsauftrag 3c, inwieweit das Desktop Environment Teil des <strong>Betriebssystemkerns</strong> oder der <strong>Anwendungssoftware</strong> ist.</p>
+    </div>
+
+    
+  </div>
+
+</div>
+  <script src="lernpfad.js"></script>
+</body>
+</html>

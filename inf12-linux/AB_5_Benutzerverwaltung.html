@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informatik 12 · 5 · Benutzerverwaltung</title>
+<link rel="stylesheet" href="styles.css">
+  <style>
+  :root {
+    --accent: #22d3ee; --accent-dim: #0a3040;   /* cyan */
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="nav-bar">
+    <a href="index.html" class="nav-home" title="Zur Startseite">🏠</a>
+    <span class="nav-label">LP:</span>
+    <a href="AB_1_Linux_kennenlernen.html" class="nav-btn">LP 1</a>
+    <a href="AB_2_Linux_Terminal.html" class="nav-btn">LP 2</a>
+    <a href="AB_3_Linux_Kernel.html" class="nav-btn">LP 3</a>
+    <a href="AB_4_Scheduling.html" class="nav-btn">LP 4</a>
+    <a href="AB_5_Benutzerverwaltung.html" class="nav-btn active">LP 5</a>
+    <a href="AB_6_Rechteverwaltung.html" class="nav-btn">LP 6</a>
+    <a href="AB_7_Dienste.html" class="nav-btn">LP 7</a>
+    <span class="nav-spacer"></span>
+    <a href="AB_4_Scheduling.html" class="nav-arrow">← LP 4</a>
+    <a href="AB_6_Rechteverwaltung.html" class="nav-arrow">LP 6 →</a>
+  </nav>
+
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-icon">👥</div>
+    <div class="header-meta">
+      <div class="header-tag">Informatik 12 · Betriebssysteme</div>
+      <div class="header-title">5 · Benutzerverwaltung</div>
+      <div class="header-sub">Benutzeraccounts · sudo</div>
+    </div>
+    <div class="badge">LP 5</div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section">
+    <div class="section-title">🧑‍💻 5.1 · Benutzeraccounts anlegen, modifizieren, löschen</div>
+    <p>Das Anlegen eines neuen Benutzeraccounts besteht unter Linux aus drei Schritten:</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;margin:1rem 0;">
+      <div class="file-card" style="text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:0.4rem;">1️⃣</div>
+        <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-bottom:0.3rem;">Account anlegen</div>
+        <div class="file-desc">In der Benutzerverwaltung registrieren</div>
+      </div>
+      <div class="file-card" style="text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:0.4rem;">2️⃣</div>
+        <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-bottom:0.3rem;">Passwort setzen</div>
+        <div class="file-desc">Anmeldepasswort festlegen</div>
+      </div>
+      <div class="file-card" style="text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:0.4rem;">3️⃣</div>
+        <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-bottom:0.3rem;">Heimverzeichnis</div>
+        <div class="file-desc">/home/username anlegen</div>
+      </div>
+    </div>
+    <p>In der Praxis werden für das Anlegen neuer Benutzeraccounts jedoch Werkzeuge verwendet, welche diese Schritte alle gemeinsam in einem Durchlauf erledigen. Bei Bedarf kann der Account darüber hinaus bestimmten Nutzergruppen zugeordnet werden.</p>
+  </div>
+
+  <!-- Task 1 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 1</span>
+      <span class="task-title-text">Nutzeraccounts und Gruppen verwalten</span>
+    </div>
+
+    <p style="color:var(--text-dim);margin-bottom:1rem;">Ziel: Die folgende Nutzer- und Gruppenstruktur direkt auf dem Ubuntu-System aufbauen.</p>
+    <div class="user-demo">
+      <div class="group-box group-eltern" style="border-left: 3px solid var(--blue);">
+        <div class="group-name" style="color:var(--blue);">👨‍👩 Gruppe: eltern</div>
+        <span class="user-chip">mama</span>
+        <span class="user-chip">papa</span>
+      </div>
+      <div class="group-box group-kinder" style="border-left: 3px solid var(--yellow);">
+        <div class="group-name" style="color:var(--yellow);">👧👦 Gruppe: kinder</div>
+        <span class="user-chip">sohn</span>
+        <span class="user-chip">tochter</span>
+      </div>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-cyan">a)</span>
+      <p><strong>Recherchieren Sie</strong> eigenständig, mit welchen Terminalbefehlen neue Nutzeraccounts und Gruppen angelegt werden können.  
+        Legen Sie anschließend die Gruppen <code>eltern</code> und <code>kinder</code> sowie die vier Nutzeraccounts <code>mama</code>, <code>papa</code>, <code>sohn</code> und <code>tochter</code> an. 
+        Sorgen Sie dafür, dass die neuen Benutzeraccounts den zwei Gruppen passend zugeordnet werden und notieren Sie sich die vergebenen Anmeldepasswörter. Testen Sie abschließend, dass ein Login mit den vier neuen Accounts möglich ist.
+      </p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-cyan">b)</span>
+      <p>Lassen Sie sich zunächst als normaler (nicht-Administrator) Nutzer im Terminal den Inhalt der Dateien <span class="operator">/etc/passwd</span>, <span class="operator">/etc/group</span> und <span class="operator">/etc/shadow</span> anzeigen und erläutern Sie, welche Informationen das Betriebssystem in diesen Dateien verwaltet.
+        Falls ein Problem auftritt, analysieren Sie die Fehlermeldung und beschreiben Sie die Ursache des Problems kurz.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-cyan">c)</span>
+      <p>Verwenden Sie root-Rechte und lassen Sie sich erneut den Inhalt der Datei <code>/etc/shadow</code> anzeigen. 
+        Stellen Sie eine Hypothese auf, welche Informationen in dieser Datei vom  Betriebssystem verwaltet werden und leiten Sie daraus eine Begründung für das unterschiedliche Verhalten beim Anzeigen dieser Datei in b) vs c) ab.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-cyan">⭐</span>
+      <p>Mit root-Rechten kann man andere Nutzeraccounts vorübergehend deaktivieren (ohne sie zu löschen). 
+        Finden Sie heraus, mit welchen Terminalbefehlen sich dies umsetzen lässt. Deaktivieren Sie vorübergehend einen der vier neu angelegten Nutzeraccounts und überprüfen und beschreiben Sie anschließend, wie diese Deaktivierung in den drei bei b) genannten Dateien umgesetzt wird. 
+        Machen Sie die Deaktivierung anschließend wieder rückgängig.</p>
+    </div>
+  </div>
+
+
+  <!-- Section 2 -->
+  <div class="section">
+    <div class="section-title section-title-blue">🔐 5.2 · Der Nutzer root und der Befehl sudo</div>
+    <p>Es dürfte bereits offensichtlich geworden sein, dass der Nutzer <code>root</code> bei Linux-Systemen eine besondere Rolle als "Hauptadministrator" mit unbeschränkten Zugriffsrechten einnimmt. Insbesondere sensible Informationen und Einstellungen, die das gesamte System betreffen, sind deshalb oft nur für den Nutzer <code>root</code> einsehbar / veränderbar.</p>
+    <p>In der Praxis führt diese Beschränkung jedoch häufig dazu, dass bequeme Nutzer sich ständig als root-Nutzer am System anmelden, damit sie bei Bedarf jederzeit vollen Systemzugriff haben. 
+      Selbst bei Computern, die nur von einer Person allein genutzt werden, kann dieses Verhaltensmuster problematisch sein, da es mit den unbeschränkten Zugriffsrechten des root-Accounts auch schnell passieren kann, dass Konfigurationen unabsichtlich verändert oder Daten ungewollt gelöscht werden. 
+      Gerade bei der Arbeit im Terminal kann im ungünstigsten Fall bereits ein einziger Tippfehler verheerende Folgen haben und das System zerstören.</p>
+    <p>Als Kompromiss zwischen Komfort und Sicherheit hat sich deshalb neben dem root-Account der Befehl <span class="operator">sudo</span> etabliert.
+      Er ermöglicht es ausgewählten normalen Nutzeraccounts einzelne Befehle mit den vollen Rechten des root-Accounts auszuführen, obwohl diese (ohne Verwendung von sudo) die gleichen Beschränkungen wie andere normale Nutzeraccounts besitzen.</p>
+
+    <div class="info-box info-orange">
+      <span class="info-icon">⚠️</span>
+      <div><strong>Gefährliches Beispiel – keinesfalls ausprobieren!:</strong> <br>
+        <code>sudo rm -rf /home</code> löscht <em>alle</em> Benutzerverzeichnisse – ohne Rückfrage! 
+        Ohne <code>sudo</code> wäre dieser Befehl für normale Nutzer geblockt.</div>
+    </div>
+
+    <p>
+      Im Alltag bietet dies eine zusätzliche Sicherheit, da sämtliche Prozesse des Nutzers im Normalfall nur mit eingeschränkten Rechten laufen können und nur explizit ausgesuchte Befehle root-Rechte erhalten. 
+      Als zusätzliche Sicherheit kann festgelegt werden, dass beim Verwenden des sudo-Befehls regelmäßig das Login-Passwort erneut eingegeben werden muss.
+    </p>   
+  </div>
+
+  
+  <!-- Task 2 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 2</span>
+      <span class="task-title-text">Systemsicherheit konfigurieren</span>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-cyan">a)</span>
+      <p>Alle Mitglieder der Gruppe <strong>eltern</strong> sollen <span class="operator">sudo</span> verwenden dürfen, Mitglieder der Gruppe <strong>kinder</strong> jedoch nicht. 
+        Setzen Sie diese Anforderungen um. Schauen Sie sich hierzu die Kommentare in der Konfigurationsdatei <code>/etc/sudoers</code> an oder recherchieren Sie eigenständig.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-cyan">⭐</span>
+      <p>Recherchieren Sie, wie sich ein Linux-System über ein Live-Medium (USB-Stick oder CD) booten lässt und wie man darüber das root-Passwort eines installierten Systems zurücksetzen könnte. 
+        Beschreiben Sie außerdem, wie ein solcher Angriff durch geeignete BIOS/UEFI-Einstellungen verhindert werden könnte.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-cyan">⭐</span>
+      <p>Im Kontext von Smartphones und anderen vergleichbaren Geräten spricht man gelegentlich vom "rooten" der Geräte. Erklären Sie, was hiermit im technischen Sinne gemeint ist.</p>
+    </div>
+
+    <div class="info-box info-yellow">
+      <span class="info-icon">💡</span>
+      <div><strong>Tipp zu /etc/sudoers:</strong> Diese Datei sollte <em>immer</em> mit <span class="operator">visudo</span> bearbeitet werden – das Werkzeug prüft die Syntax vor dem Speichern und verhindert so, dass das sudo-System durch Tippfehler unbrauchbar wird.</div>
+    </div>
+  </div>
+
+</div>
+  <script src="lernpfad.js"></script>
+</body>
+</html>

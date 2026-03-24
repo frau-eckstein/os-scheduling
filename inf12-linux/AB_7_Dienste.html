@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informatik 12 · Lernpaket 7 · Dienste</title>
+<link rel="stylesheet" href="styles.css">
+  <style>
+  :root {
+    --accent: #2dd4bf; --accent-dim: #003d38;   /* teal */
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="nav-bar">
+    <a href="index.html" class="nav-home" title="Zur Startseite">🏠</a>
+    <span class="nav-label">LP:</span>
+    <a href="AB_1_Linux_kennenlernen.html" class="nav-btn">LP 1</a>
+    <a href="AB_2_Linux_Terminal.html" class="nav-btn">LP 2</a>
+    <a href="AB_3_Linux_Kernel.html" class="nav-btn">LP 3</a>
+    <a href="AB_4_Scheduling.html" class="nav-btn">LP 4</a>
+    <a href="AB_5_Benutzerverwaltung.html" class="nav-btn">LP 5</a>
+    <a href="AB_6_Rechteverwaltung.html" class="nav-btn">LP 6</a>
+    <a href="AB_7_Dienste.html" class="nav-btn active">LP 7</a>
+    <span class="nav-spacer"></span>
+    <a href="AB_6_Rechteverwaltung.html" class="nav-arrow">← LP 6</a>
+    <a href="AB_1_Linux_kennenlernen.html" class="nav-arrow">LP 1 →</a>
+  </nav>
+
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-icon">🖥️</div>
+    <div class="header-meta">
+      <div class="header-tag">Informatik 12 · Betriebssysteme</div>
+      <div class="header-title">Lernpaket 7 · Dienste</div>
+      <div class="header-sub">systemctl · Apache2-Webserver · eigene Dienste einrichten</div>
+    </div>
+    <div class="badge">LP 7</div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section">
+    <div class="section-title">⚙️ 1 · Grundlagen der Diensteverwaltung</div>
+    <p>Neben Nutzer- und Betriebssystemprozessen gibt es eine dritte Kategorie: <strong>Dienste</strong>. Das sind Programme, die das Betriebssystem automatisch verwaltet – z. B. beim Systemstart, ohne Nutzerinteraktion.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;margin:1rem 0;">
+      <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:0.3rem;">👤</div>
+        <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-bottom:0.3rem;">Nutzerprozesse</div>
+        <div style="font-size:0.75rem;color:var(--text-dim);">Vom Nutzer manuell gestartet</div>
+      </div>
+      <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:0.3rem;">🐧</div>
+        <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-bottom:0.3rem;">BS-Prozesse</div>
+        <div style="font-size:0.75rem;color:var(--text-dim);">Kernel-intern (in <code>[...]</code> in ps)</div>
+      </div>
+      <div style="background:var(--bg);border:1.5px solid var(--accent);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:0.3rem;">🔧</div>
+        <div style="font-size:0.78rem;font-weight:800;color:var(--accent);margin-bottom:0.3rem;">Dienste</div>
+        <div style="font-size:0.75rem;color:var(--text-dim);">Vom BS verwaltet, autostart</div>
+      </div>
+    </div>
+
+    <p>Unter Linux werden Dienste mit <span class="operator">systemctl</span> verwaltet. Jeder Dienst hat zwei unabhängige Zustands-Paare:</p>
+
+    <div class="state-grid">
+      <div class="state-card">
+        <div class="state-label" style="color:var(--blue);">⚡ Laufzustand</div>
+        <div class="state-pair">
+          <span class="state-chip sc-on">active</span>
+          <span class="state-desc">Dienst läuft gerade</span>
+        </div>
+        <div class="state-pair">
+          <span class="state-chip sc-off">inactive</span>
+          <span class="state-desc">Dienst läuft nicht</span>
+        </div>
+      </div>
+      <div class="state-card">
+        <div class="state-label" style="color:var(--accent);">🔁 Autostart</div>
+        <div class="state-pair">
+          <span class="state-chip sc-on">enabled</span>
+          <span class="state-desc">Startet automatisch beim Booten</span>
+        </div>
+        <div class="state-pair">
+          <span class="state-chip sc-off">disabled</span>
+          <span class="state-desc">Kein automatischer Start</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-1"></div><div class="dot dot-2"></div><div class="dot dot-3"></div>
+        <span class="terminal-label">systemctl – wichtige Befehle</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> <span class="cmd">systemctl list-unit-files --state=enabled</span> <span class="output">&nbsp;# Aktivierte Dienste</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">systemctl status apache2</span> <span class="output">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Status anzeigen</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">sudo systemctl enable --now apache2</span> <span class="output">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Aktivieren + starten</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">sudo systemctl restart apache2</span> <span class="output">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Neu starten</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">sudo journalctl -xe</span> <span class="output">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Systemprotokoll</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Task 1 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 1</span>
+      <span class="task-title-text">Dienste erkunden und verstehen 🔍</span>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-teal">a)</span>
+      <p>Zeige mit <span class="operator">systemctl list-unit-files --state=enabled</span> alle aktivierten Dienste an. Finde für <strong>2–3 Dienste</strong> heraus, welchem Zweck sie dienen.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-teal">b)</span>
+      <p>Zeige mit <span class="operator">systemctl status XXX.service</span> weitere Informationen zu einem Dienst deiner Wahl an. Analysiere die Ausgabe und erkläre den Unterschied zwischen <strong>enabled/disabled</strong> und <strong>active/inactive</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section">
+    <div class="section-title section-title-blue">🌐 2 · Einen Webserver-Dienst einrichten</div>
+    <p>Der Webserver <strong>Apache2</strong> soll als Dienst installiert werden – so ist er auch nach einem Neustart und ohne angemeldeten Nutzer erreichbar.</p>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-1"></div><div class="dot dot-2"></div><div class="dot dot-3"></div>
+        <span class="terminal-label">Apache2 – Installation und Prüfung</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> <span class="cmd">sudo apt install apache2</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">systemctl status apache2</span></div>
+        <div class="out-ok">&nbsp;&nbsp;● apache2.service - The Apache HTTP Server</div>
+        <div class="out-ok">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Loaded: loaded (/lib/systemd/system/apache2.service; enabled)</div>
+        <div class="out-ok">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Active: active (running) since ...</div>
+        <div style="margin-top:0.5rem"><span class="output">&nbsp;&nbsp;# Webserver testen: http://127.0.0.1:80 im Browser aufrufen</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Task 2 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t2">ARBEITSAUFTRAG 2</span>
+      <span class="task-title-text">Apache2-Webserver konfigurieren 🌐</span>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-blue">a)</span>
+      <p>Installiere Apache2 mit <span class="operator">sudo apt install apache2</span>. Prüfe mit <span class="operator">systemctl status apache2</span>, ob der Dienst eingerichtet und gestartet ist. Teste im Browser: <code>http://127.0.0.1:80</code> sollte eine Demoseite anzeigen.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-blue">b)</span>
+      <p>Ändere <code>/etc/apache2/ports.conf</code> so, dass der Webserver künftig unter <strong>Port 8080</strong> läuft. Prüfe im Browser, ob die Änderung greift. Führe dann <span class="operator">systemctl restart apache2</span> aus und prüfe erneut. Erkläre den Unterschied in deinen Beobachtungen vor und nach dem Neustart.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-blue">c)</span>
+      <p>Ändere die Konfiguration nochmals auf den ungültigen Port <code>8080abc</code>. Starte den Dienst neu und analysiere mit <span class="operator">systemctl status apache2</span> und <span class="operator">journalctl -xe</span>, wie sich ungültige Konfigurationswerte bemerkbar machen.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-blue">d)</span>
+      <p>Überprüfe, mit welchen <strong>Benutzerrechten</strong> der Apache-Webserver standardmäßig ausgeführt wird (Tipp: <span class="operator">ps -aux | grep apache</span>). Begründe diese Festlegung im Kontext von Datenschutz und Datensicherheit.</p>
+    </div>
+
+    <div class="info-box info-orange">
+      <span class="info-icon">⚠️</span>
+      <div><strong>Hinweis zu c):</strong> Ein Dienst mit fehlerhafter Konfiguration startet nicht. <span class="operator">journalctl -xe</span> zeigt die genaue Fehlermeldung und hilft bei der Fehlersuche – das ist der erste Anlaufpunkt bei Problemen im Serverbetrieb.</div>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section">
+    <div class="section-title section-title-purple">🛠️ 3 · Einen eigenen Dienst einrichten</div>
+    <p>Es ist möglich, eigene Programme als Systemdienst zu registrieren. Das Beispiel hier: ein Dienst, der <strong>alle 20 Sekunden</strong> den freien Speicherplatz in eine Logdatei schreibt.</p>
+
+    <p>Die Konfigurationsdatei eines Dienstes liegt unter <code>/etc/systemd/system/meindienst.service</code> und hat folgendes Format:</p>
+
+    <div class="service-file">
+      <div><span class="sf-section">[Unit]</span></div>
+      <div><span class="sf-key">Description=</span><span class="sf-val">Mein selbsterstellter Dienst</span></div>
+      <div>&nbsp;</div>
+      <div><span class="sf-section">[Service]</span></div>
+      <div><span class="sf-key">Type=</span><span class="sf-val">simple</span></div>
+      <div><span class="sf-key">ExecStart=</span><span class="sf-placeholder">... &nbsp;&lt;-- Startbefehl deines Programms</span></div>
+      <div>&nbsp;</div>
+      <div><span class="sf-section">[Install]</span></div>
+      <div><span class="sf-key">WantedBy=</span><span class="sf-val">multi-user.target</span></div>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-1"></div><div class="dot dot-2"></div><div class="dot dot-3"></div>
+        <span class="terminal-label">Dienst aktivieren</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> <span class="cmd">sudo systemctl daemon-reload</span> <span class="output">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Neue Konfiguration laden</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">sudo systemctl enable --now meindienst</span> <span class="output">&nbsp;# Aktivieren + starten</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">systemctl status meindienst</span> <span class="output">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Status prüfen</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Task 3 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t3">ARBEITSAUFTRAG 3</span>
+      <span class="task-title-text">Eigenen Dienst programmieren und einrichten 🛠️</span>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-purple">a)</span>
+      <p>Schreibe ein Programm (z. B. in Java oder Python), das in einer Endloswiederholung:<br>
+         &nbsp;1. Den freien Speicherplatz unter <code>/</code> ermittelt<br>
+         &nbsp;2. Ihn mit Zeitstempel in eine <strong>Logdatei anhängt</strong> (nicht überschreibt!)<br>
+         &nbsp;3. Anschließend <strong>20 Sekunden wartet</strong></p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-purple">b)</span>
+      <p>Erstelle die Datei <code>/etc/systemd/system/meindienst.service</code> mit dem obigen Grundgerüst. Ersetze <code>...</code> durch den Startbefehl deines Programms aus a).</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-purple">c)</span>
+      <p>Lade die Konfiguration mit <span class="operator">systemctl daemon-reload</span> neu und aktiviere/starte den Dienst mit den bereits bekannten Befehlen.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-purple">d)</span>
+      <p>Überprüfe, ob der Dienst wie vorgesehen arbeitet und auch nach einem <strong>Systemneustart</strong> weiterhin aktiv ist.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-purple">e)</span>
+      <p>Beende den zugehörigen Prozess manuell mit <span class="operator">ps</span> und <span class="operator">kill</span>. Beobachte, wie die Diensteverwaltung auf diesen simulierten <strong>„Programmabsturz"</strong> reagiert. Begründe, weshalb dieses Verhalten sinnvoll ist.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-purple">f)</span>
+      <p>Erweitere das Programm um regelmäßige <strong>Terminalausgaben</strong>. Finde heraus, auf welchem Weg diese Ausgaben während der Ausführung als Dienst abrufbar sind. 💡 Tipp: Schau dir <span class="operator">journalctl -fu meindienst</span> an.</p>
+    </div>
+
+    <div class="info-box info-teal">
+      <span class="info-icon">💡</span>
+      <div><strong>Freier Speicherplatz in Java:</strong> <code>new java.io.File("/").getFreeSpace()</code> liefert die freien Bytes. In Python: <code>import shutil; shutil.disk_usage("/")</code>. Für den Zeitstempel: <code>LocalDateTime.now()</code> (Java) bzw. <code>datetime.now()</code> (Python).</div>
+    </div>
+
+    <div class="info-box info-yellow">
+      <span class="info-icon">🔁</span>
+      <div><strong>Tipp zu e) – Restart-Verhalten:</strong> Systemd startet abgestürzte Dienste standardmäßig automatisch neu. In der <code>.service</code>-Datei lässt sich dieses Verhalten mit <code>Restart=always</code> oder <code>Restart=on-failure</code> explizit steuern.</div>
+    </div>
+  </div>
+
+</div>
+  <script src="lernpfad.js"></script>
+</body>
+</html>

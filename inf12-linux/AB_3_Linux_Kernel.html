@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informatik 12 · 3 · Linux-Kernel</title>
+<link rel="stylesheet" href="styles.css">
+  <style>
+  :root {
+    --accent: #fb923c; --accent-dim: #3d1f00;   /* orange */
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="nav-bar">
+    <a href="index.html" class="nav-home" title="Zur Startseite">🏠</a>
+    <span class="nav-label">LP:</span>
+    <a href="AB_1_Linux_kennenlernen.html" class="nav-btn">LP 1</a>
+    <a href="AB_2_Linux_Terminal.html" class="nav-btn">LP 2</a>
+    <a href="AB_3_Linux_Kernel.html" class="nav-btn active">LP 3</a>
+    <a href="AB_4_Scheduling.html" class="nav-btn">LP 4</a>
+    <a href="AB_5_Benutzerverwaltung.html" class="nav-btn">LP 5</a>
+    <a href="AB_6_Rechteverwaltung.html" class="nav-btn">LP 6</a>
+    <a href="AB_7_Dienste.html" class="nav-btn">LP 7</a>
+    <span class="nav-spacer"></span>
+    <a href="AB_2_Linux_Terminal.html" class="nav-arrow">← LP 2</a>
+    <a href="AB_4_Scheduling.html" class="nav-arrow">LP 4 →</a>
+  </nav>
+
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-icon">⚙️</div>
+    <div class="header-meta">
+      <div class="header-tag">Informatik 12 · Betriebssysteme</div>
+      <div class="header-title">3 · Der Linux-Kernel und seine Schnittstellen</div>
+      <div class="header-sub">Verzeichnis /proc · dmesg · System Requests · Syscalls</div>
+    </div>
+    <div class="badge">LP 3</div>
+  </div>
+
+  <!-- Section: /proc -->
+  <div class="section">
+    <div class="section-title">🗃️ 3.1 · Das Verzeichnis /proc</div>
+    <p>Bei Linux-Betriebssystemen ist <code style="font-family:var(--mono);color:var(--orange)">/proc</code> eine wichtige <strong>Kernel-Schnittstelle</strong>. 
+      Die Dateien und Unterverzeichnisse in diesem Verzeichnis werden <em>dynamisch vom Kernel generiert</em>, d. h. sie sind nicht im Hintergrundspeicher abgelegt.</p>
+    <p>Sie enthalten verschiedenste Informationen über den <strong>Zustand und die Konfiguration</strong> des Betriebssystemkernels und sind z. B. mittels <span class="operator">cat</span> direkt auslesbar.</p>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
+        <span class="terminal-label">Beispiel: /proc erkunden</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> <span class="cmd">cat /proc/cpuinfo</span></div>
+        <div class="output">processor &nbsp;&nbsp;&nbsp;: 0</div>
+        <div class="output">vendor_id &nbsp;&nbsp;&nbsp;: GenuineIntel</div>
+        <div class="output">cpu family &nbsp;&nbsp;: 6</div>
+        <div class="output">...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Task 1 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 1</span>
+      <span class="task-title-text">Das /proc-Verzeichnis erkunden</span>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-orange">a)</span>
+      <p>Lassen Sie sich den Inhalt der Datei <code style="font-family:var(--mono);color:var(--orange)">/proc/cpuinfo</code> im Terminal anzeigen (vgl. Befehl oben) und beschreiben Sie anschließend kurz in eigenen Worten, welche Art von Daten der Kernel über diese Datei bereitstellt.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-orange">b)</span>
+      <p>Finden Sie für <strong>drei weitere Dateien</strong> unter <code style="font-family:var(--mono);color:var(--orange)">/proc</code> heraus, welche Funktion diese erfüllen.</p>
+    </div>
+  </div>
+
+
+  <!-- Section: dmesg -->
+  <div class="section">
+    <div class="section-title">📜 3.2 · Kernel-Nachrichten lesen</div>
+    <p>Mit <span class="operator">dmesg</span> können Statusmeldungen des Kernels eingesehen werden. 
+      Je nachdem, in welcher Form und in welchem Format die Ausgabe benötigt wird, lässt sich das Ausgabeformat über Kommandozeilenparameter entsprechend anpassen.
+    </p>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
+        <span class="terminal-label">dmesg – menschenlesbare Ausgabe</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> <span class="cmd">dmesg --help</span> <span class="output">&nbsp;&nbsp;&nbsp;# Hilfe anzeigen</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">sudo dmesg -H -T</span> <span class="output">&nbsp;# Menschenlesbar + Zeitstempel</span></div>
+        <div class="output">[Mo Jan  1 12:00:00 2024] Linux version 5.15 ...</div>
+        <div class="output">[Mo Jan  1 12:00:01 2024] CPU: Intel Core i5 ...</div>
+      </div>
+    </div>
+  </div>
+
+ <!-- Task 2 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 2</span>
+      <span class="task-title-text">Analyse von dmesg</span>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-orange">a)</span>
+      <p>Erkundigen Sie sich durch Eingabe des Befehls <span class="operator">dmesg --help</span> über die verfügbaren Kommandozeilenparameter und deren Bedeutung.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-orange">b)</span>
+      <p>Wählen Sie geeignete Parameter aus der Auflistung von a) aus, sodass die Ausgabe von Kernelnachrichten möglichst menschenlesbar erfolgt.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-orange">c)</span>
+      <p>Führen Sie den Befehl <span class="operator">sudo dmesg</span> aus und ergänzen Sie dabei die gewünschten Kommandozeilenparameter aus b) am Ende des Befehls (jeweils durch ein Leerzeichen getrennt).</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-orange">d)</span>
+      <p>Analysieren Sie die Ausgabe von c) und versuchen Sie die Bedeutung der einzelnen Zeilen bestmöglich selbst zu erschließen (ggf. gemeinsam in Kleingruppen).</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-orange">e)</span>
+      <p>Fassen Sie allgemein zusammen, welche Art von Informationen ein Aufruf von <span class="operator">dmesg</span> liefert und welchem Zweck diese Ausgabe dienen kann.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-orange">f)</span>
+      <p>Stellen Sie eine Hypothese auf, weshalb die "menschenlesbare" Ausgabe nicht der Standardfall ist und dieses Ausgabeformat somit erst explizit durch Kommandozeilenparameter aktiviert werden muss.</p>
+    </div>
+  </div>
+  
+  <!-- Section: Syscalls -->
+  <div class="section">
+    <div class="section-title">🔌 3.3 · Betriebssystemaufrufe / Syscalls</div>
+    <p>Der Betriebssystemkern hat <strong>alleinigen direkten Zugriff</strong> auf zentrale Ressourcen (Speicher, CPU, …). 
+      Damit jedoch auch Anwendungsprogramme diese Ressourcen nutzen können, bietet der Kernel über sogenannte  <strong>Syscalls</strong> eine Schnittstelle an, mittels der Anwendungsprogramme den Kernel beauftragen können bestimmte privilegierte Operationen auszuführen.</p>
+    <p>Der Kernel übernimmt daraufhin die Kontrolle über die Ausführung, arbeitet die privilegierten Operationen ab und überträgt die Kontrolle anschließend zurück an das aufrufende Anwendungsprogramm:</p>
+
+    <div class="concept-grid">
+      <div class="concept-card">
+        <div class="concept-icon">📱</div>
+        <div class="concept-title">Anwendungsprogramm</div>
+        <div class="concept-desc">Braucht Ressource → ruft Syscall auf</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">⚡</div>
+        <div class="concept-title">Syscall</div>
+        <div class="concept-desc">Kernel übernimmt Kontrolle → führt privilegierte Operation aus</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">🔄</div>
+        <div class="concept-title">Rückgabe</div>
+        <div class="concept-desc">Kontrolle zurück an Anwendungsprogramm</div>
+      </div>
+    </div>
+
+    <div class="link-box">
+      🔗 <a href="https://de.wikipedia.org/wiki/Liste_der_Linux-Systemaufrufe" target="_blank">Liste der Linux-Systemaufrufe (Wikipedia)</a>
+    </div>
+  </div>
+
+  <!-- Task 3 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 3</span>
+      <span class="task-title-text">Syscalls beobachten</span>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-orange">a)</span>
+      <p>Erstellen Sie ein minimalistisches Java-Programm <code style="font-family:var(--mono);color:var(--orange)">Test.java</code>, das den Text <em>"stra!"</em> in eine Datei schreibt und anschließend den Text <em>"Hallo Welt!"</em> im Terminal ausgibt.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-orange">b)</span>
+      <p>Mit dem Werkzeug <strong>strace</strong> lassen sich die Syscalls eines Programms im Terminal sichtbar machen. <br>
+        Ruft man im Terminal <span class="operator">strace java Test</span> auf, so wird das angegebene Programm normal ausgeführt – gleichzeitig werden jedoch alle bei der Programmausführung durchgeführten Syscalls im Terminal aufgelistet. <br> 
+        Lassen Sie sich auf diese Weise die Syscalls des Programms aus a) mittels <span class="operator">strace java Test.java</span> anzeigen. 
+        Analysieren Sie die Ausgabe und identifiziere Sie dabei die zum Schreiben in eine Datei notwendigen Syscalls.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-orange">⭐</span>
+      <p>Analysieren Sie basierend auf der Ausgabe von b), wie beim Betriebssystem die Ausgabe von Text im Terminal realisiert wird.</p>
+    </div>
+  </div>
+
+</div>
+  <script src="lernpfad.js"></script>
+</body>
+</html>
