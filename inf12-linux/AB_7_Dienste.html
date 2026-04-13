@@ -84,12 +84,12 @@
     </div>
 
     <div class="subtask">
-      <span class="subtask-label sl-blue">a)</span>
+      <span class="subtask-label sl-teal">a)</span>
       <p>Lassen Sie sich mit <span class="operator">systemctl list-unit-files --state=enabled</span> eine Liste der aktuell auf dem Rechner aktivierten Dienste ausgeben.
         Finden Sie anschließend für <strong>2–3 dieser Dienste</strong> heraus, welchem Zweck sie dienen.</p>
     </div>
     <div class="subtask">
-      <span class="subtask-label sl-blue">b)</span>
+      <span class="subtask-label sl-teal">b)</span>
       <p>Lassen Sie sich für einen Dienst <code>XXX</code> Ihrer Wahl mit <span class="operator">systemctl status XXX.service</span> weitere Informationen anzeigen. Analysieren Sie die Ausgabe und erklären Sie den Unterschied zwischen den Zustandspaaren <strong>enabled/disabled</strong> und <strong>active/inactive</strong>.</p>
     </div>
   </div>
@@ -120,12 +120,12 @@
   <!-- Task 2 -->
   <div class="task-card">
     <div class="task-header">
-      <span class="task-number t2">ARBEITSAUFTRAG 2</span>
+      <span class="task-number t1">ARBEITSAUFTRAG 2</span>
       <span class="task-title-text">Apache2-Webserver konfigurieren</span>
     </div>
 
     <div class="subtask">
-      <span class="subtask-label sl-blue">a)</span>
+      <span class="subtask-label sl-teal">a)</span>
       <p>Installieren Sie den Apache-Webserver mit <span class="operator">sudo apt install apache2</span>. 
         Überprüfen Sie anschließend mit <span class="operator">systemctl status apache2</span>, ob der Dienst ordnungsgemäß eingerichtet, aktiviert und gestartet wurde. 
         Falls nicht, holen Sie dies mit <span class="operator">systemctl enable –now apache2</span> nach.
@@ -135,19 +135,19 @@
       </p>
     </div>
     <div class="subtask">
-      <span class="subtask-label sl-blue">b)</span>
+      <span class="subtask-label sl-teal">b)</span>
       <p>Ändern Sie die Konfigurationsdatei <code>/etc/apache2/ports.conf</code> so ab, dass der Webserver künftig unter <strong>Port 8080</strong> (statt wie bisher 80) erreichbar ist. 
         Prüfen Sie anschließend im Browser, ob die Änderung greift. <br>
         Führen Sie dann <span class="operator">systemctl restart apache2</span> aus und prüfen Sie erneut, unter welchem Port der Webserver nun erreichbar ist. 
         Begründen Sie den Unterschied in Ihren Beobachtungen vor und nach dem Neustart.</p>
     </div>
     <div class="subtask">
-      <span class="subtask-label sl-blue">c)</span>
+      <span class="subtask-label sl-teal">c)</span>
       <p>Ändern Sie die Konfigurationsdatei aus Teilaufgabe b) erneut ab, sodass der Webserver unter dem Port <code>8080abc</code> erreichbar sein soll. 
         Starten Sie den Dienst anschließend neu und analysieren Sie mittels <span class="operator">systemctl status apache2</span> und <span class="operator">journalctl -xe</span>, wie sich derart ungültige Angaben in der Konfigurationsdatei bemerkbar machen.</p>
     </div>
     <div class="subtask">
-      <span class="subtask-label sl-blue">d)</span>
+      <span class="subtask-label sl-teal">d)</span>
       <p>Überprüfen Sie auf geeignete Weise, mit welchen Benutzerrechten der Webserver standardmäßig ausgeführt wird, und begründe diese Festlegung im Kontext von Datenschutz und Datensicherheit</p>
     </div>
   </div>
@@ -169,12 +169,12 @@
   <!-- Task 3 -->
   <div class="task-card">
     <div class="task-header">
-      <span class="task-number t3">ARBEITSAUFTRAG 3</span>
+      <span class="task-number t1">ARBEITSAUFTRAG 3</span>
       <span class="task-title-text">Eigenen Dienst programmieren und einrichten</span>
     </div>
 
     <div class="subtask">
-      <span class="subtask-label sl-blue">a)</span>
+      <span class="subtask-label sl-teal">a)</span>
       <p>Verfassen Sie (ggf. unter Zuhilfenahme geeigneter Bibliotheken) ein einfaches Programm, das in einer Endloswiederholung:<br>
          &nbsp;... den aktuell verfügbaren freien Speicherplatz unter dem Dateisystempfad <code>/</code> ermittelt<br>
          &nbsp;... an einem geeigneten Ort zusammen mit einem Zeitstempel in eine Logdatei schreibt, wobei
@@ -188,7 +188,7 @@
     </div>
 
     <div class="subtask">
-      <span class="subtask-label sl-blue">b)</span>
+      <span class="subtask-label sl-teal">b)</span>
       <p>Erstellen Sie die Datei <code>/etc/systemd/system/meindienst.service</code> mit dem nachfolgendem Inhalt. 
         Ersetzen Sie dabei <code>...</code> durch den zum Starten Ihres Programms aus a) notwendigen Terminalbefehl.</p>
     </div>
@@ -206,7 +206,7 @@
     </div>
 
     <div class="subtask">
-      <span class="subtask-label sl-blue">c)</span>
+      <span class="subtask-label sl-teal">c)</span>
       <p>Sorgen Sie mittels <span class="operator">systemctl daemon-reload</span> dafür, 
         dass die Diensteverwaltung des Betriebssystems auf die soeben neu erstellte Dienst-Konfigurationsdatei aufmerksam wird und aktivieren/starten Sie den selbst erstellten Dienst „meindienst“ anschließend mittels der bereits bekannten Terminalbefehle.
       </p>
@@ -225,20 +225,20 @@
     </div>
 
     <div class="subtask">
-      <span class="subtask-label sl-blue">d)</span>
+      <span class="subtask-label sl-teal">d)</span>
       <p>
         Überprüfen Sie, ob der Dienst wie vorgesehen arbeitet und auch nach einem Systemneustart weiterhin aktiv ist.
       </p>
     </div>
     <div class="subtask">
-      <span class="subtask-label sl-blue">e)</span>
+      <span class="subtask-label sl-teal">e)</span>
       <p>Beenden Sie den zum Dienst gehörigen Prozess manuell mit <span class="operator">ps</span> und <span class="operator">kill</span>. 
         Überprüfen Sie danach, wie die Diensteverwaltung des Bestriebssystems auf diesen simulierten <strong>"Programmabsturz"</strong> reagiert. 
         Begründen Sie, weshalb diese Vorgehensweise des Betriebssystems in der Regel sinnvoll ist.</p>
     </div>
 
     <div class="subtask">
-      <span class="subtask-label sl-blue">f)</span>
+      <span class="subtask-label sl-teal">f)</span>
       <p>Erweitern Sie Ihr Programm um regelmäßige <strong>Terminalausgaben</strong>. 
         Finden Sie anschließend heraus und beschreiben Sie, auf welchem Weg diese Ausgaben während der Ausführung als Dienst abrufbar sind. 
       </p>
