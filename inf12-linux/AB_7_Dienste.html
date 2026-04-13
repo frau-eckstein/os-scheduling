@@ -43,8 +43,212 @@
 
   <!-- Section 1 -->
   <div class="section">
-    <div class="section-title">to be continued ...</div>    
+    <div class="section-title">⚙️ 1 · Grundlagen der Diensteverwaltung</div>
+    <p>
+      Startet man auf einem Rechner ein Programm, muss das Betriebssystem die zu diesem Programm gehörigen
+      Prozesse verwalten (vgl. Scheduling). Lässt man sich aber z. B. mit dem Befehl <code>ps -aux</code> eine Liste der
+      laufenden Prozesse auf einem Rechner anzeigen, wird schnell klar, dass neben den direkt von den Nutzern
+      gestarteten Prozessen noch eine ganze Reihe weiterer Prozesse vorhanden sind. Ein Teil dieser Prozesse
+      gehört zum Betriebssystem selbst (bei Prozessen, die in der Liste von <code>ps -aux</code> in eckigen Klammern aufgeführt werden ist dies in der Regel der Fall).
+    </p>
+    <p>Neben Nutzer- und Betriebssystemprozessen gibt es eine weitere Kategorie: <strong>Dienste</strong>. <br>
+      Das sind Programme, die das Betriebssystem automatisch verwaltet – z. B. beim Systemstart, ohne Nutzerinteraktion.</p>
+    <p>
+      Eine besonders zentrale Rolle spielen Dienste bei Rechnern, welche als Server genutzt werden, aber auch auf normalen Heim- und Arbeitsplatz-PCs sind in der Regel verschiedene Dienste aktiv.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;margin:1rem 0;">
+      <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:0.3rem;">👤</div>
+        <div style="font-weight:800;color:#fff;margin-bottom:0.3rem;">Nutzerprozesse</div>
+        <div style="color:var(--text-dim);">Vom Nutzer manuell gestartet</div>
+      </div>
+      <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:0.3rem;">🐧</div>
+        <div style="font-weight:800;color:#fff;margin-bottom:0.3rem;">BS-Prozesse</div>
+        <div style="color:var(--text-dim);">Kernel-intern (in <code>[...]</code> in ps)</div>
+      </div>
+      <div style="background:var(--bg);border:1.5px solid var(--accent);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:0.3rem;">🔧</div>
+        <div style="font-weight:800;color:var(--accent);margin-bottom:0.3rem;">Dienste</div>
+        <div style="color:var(--text-dim);">Vom BS verwaltet, autostart</div>
+      </div>
+    </div>
   </div>
+
+  <!-- Task 1 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t1">ARBEITSAUFTRAG 1</span>
+      <span class="task-title-text">Dienste erkunden und verstehen</span>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-blue">a)</span>
+      <p>Lassen Sie sich mit <span class="operator">systemctl list-unit-files --state=enabled</span> eine Liste der aktuell auf dem Rechner aktivierten Dienste ausgeben.
+        Finden Sie anschließend für <strong>2–3 dieser Dienste</strong> heraus, welchem Zweck sie dienen.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-blue">b)</span>
+      <p>Lassen Sie sich für einen Dienst <code>XXX</code> Ihrer Wahl mit <span class="operator">systemctl status XXX.service</span> weitere Informationen anzeigen. Analysieren Sie die Ausgabe und erklären Sie den Unterschied zwischen den Zustandspaaren <strong>enabled/disabled</strong> und <strong>active/inactive</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section">
+    <div class="section-title section-title-blue">🌐 2 · Einen Webserver-Dienst einrichten</div>
+    <p>Im Folgenden soll beispielhaft der Webserver <strong>Apache2</strong> als Dienst installiert und gestartet werden. 
+      Durch die Einrichtung als Dienst soll der Webserver so auch dann erreichbar sein, 
+      wenn der Rechner neugestartet wurde und/oder aktuell kein Nutzer am Rechner angemeldet ist.</p>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-1"></div><div class="dot dot-2"></div><div class="dot dot-3"></div>
+        <span class="terminal-label">Apache2 – Installation und Prüfung</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> <span class="cmd">sudo apt install apache2</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">systemctl status apache2</span></div>
+        <div class="out-ok">&nbsp;&nbsp;● apache2.service - The Apache HTTP Server</div>
+        <div class="out-ok">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Loaded: loaded (/lib/systemd/system/apache2.service; enabled)</div>
+        <div class="out-ok">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Active: active (running) since ...</div>
+        <div style="margin-top:0.5rem"><span class="output">&nbsp;&nbsp;# Webserver testen: http://127.0.0.1:80 im Browser aufrufen</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Task 2 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t2">ARBEITSAUFTRAG 2</span>
+      <span class="task-title-text">Apache2-Webserver konfigurieren</span>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-blue">a)</span>
+      <p>Installieren Sie den Apache-Webserver mit <span class="operator">sudo apt install apache2</span>. 
+        Überprüfen Sie anschließend mit <span class="operator">systemctl status apache2</span>, ob der Dienst ordnungsgemäß eingerichtet, aktiviert und gestartet wurde. 
+        Falls nicht, holen Sie dies mit <span class="operator">systemctl enable –now apache2</span> nach.
+        <br>
+        Überprüfen Sie die Funktion des Webservers danach im Webbrowser: 
+        Bei Aufruf der URL <code>http://127.0.0.1:80</code> sollte eine Demoseite des Webservers angezeigt werden.
+      </p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-blue">b)</span>
+      <p>Ändern Sie die Konfigurationsdatei <code>/etc/apache2/ports.conf</code> so ab, dass der Webserver künftig unter <strong>Port 8080</strong> (statt wie bisher 80) erreichbar ist. 
+        Prüfen Sie anschließend im Browser, ob die Änderung greift. <br>
+        Führen Sie dann <span class="operator">systemctl restart apache2</span> aus und prüfen Sie erneut, unter welchem Port der Webserver nun erreichbar ist. 
+        Begründen Sie den Unterschied in Ihren Beobachtungen vor und nach dem Neustart.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-blue">c)</span>
+      <p>Ändern Sie die Konfigurationsdatei aus Teilaufgabe b) erneut ab, sodass der Webserver unter dem Port <code>8080abc</code> erreichbar sein soll. 
+        Starten Sie den Dienst anschließend neu und analysieren Sie mittels <span class="operator">systemctl status apache2</span> und <span class="operator">journalctl -xe</span>, wie sich derart ungültige Angaben in der Konfigurationsdatei bemerkbar machen.</p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-blue">d)</span>
+      <p>Überprüfen Sie auf geeignete Weise, mit welchen Benutzerrechten der Webserver standardmäßig ausgeführt wird, und begründe diese Festlegung im Kontext von Datenschutz und Datensicherheit</p>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section">
+    <div class="section-title section-title-purple">🛠️ 3 · Einen eigenen Dienst einrichten</div>
+    <p>
+      Viele oft verwendete Dienste (wie z. B. der Apache-Webserver) sind als fertige Softwarepakete verfügbar und müssen lediglich installiert und ggf. konfiguriert werden. 
+      Es ist jedoch auch möglich gänzlich individuelle Dienste im System einzurichten.
+    </p>
+    <p>
+      Im Folgenden soll dies an einem einfachen Beispiel nachvollzogen werden, indem ein Dienst eingerichtet wird, 
+      welcher in regelmäßigen Abständen den Füllstand des Systemlaufwerks in eine Logdatei schreibt.
+    </p>
+  </div>
+  
+
+  <!-- Task 3 -->
+  <div class="task-card">
+    <div class="task-header">
+      <span class="task-number t3">ARBEITSAUFTRAG 3</span>
+      <span class="task-title-text">Eigenen Dienst programmieren und einrichten</span>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-blue">a)</span>
+      <p>Verfassen Sie (ggf. unter Zuhilfenahme geeigneter Bibliotheken) ein einfaches Programm, das in einer Endloswiederholung:<br>
+         &nbsp;... den aktuell verfügbaren freien Speicherplatz unter dem Dateisystempfad <code>/</code> ermittelt<br>
+         &nbsp;... an einem geeigneten Ort zusammen mit einem Zeitstempel in eine Logdatei schreibt, wobei
+         die Logdatei dabei stets um eine weitere Zeile erweitert (und NICHT der bisherige Inhalt überschrieben) werden soll<br>
+         &nbsp;... anschließend <strong>20 Sekunden wartet</strong>, bevor die nächste Iteration der Endloswiederholung durchlaufen wird</p>
+    </div>
+
+    <div class="info-box info-yellow">
+      <span class="info-icon">💡</span>
+      <div><strong>Freier Speicherplatz in Java:</strong> <code>new java.io.File("/").getFreeSpace()</code> liefert die freien Bytes. In Python: <code>import shutil; shutil.disk_usage("/")</code>. Für den Zeitstempel: <code>LocalDateTime.now()</code> (Java) bzw. <code>datetime.now()</code> (Python).</div>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-blue">b)</span>
+      <p>Erstellen Sie die Datei <code>/etc/systemd/system/meindienst.service</code> mit dem nachfolgendem Inhalt. 
+        Ersetzen Sie dabei <code>...</code> durch den zum Starten Ihres Programms aus a) notwendigen Terminalbefehl.</p>
+    </div>
+
+    <div class="service-file">
+      <div><span class="sf-section">[Unit]</span></div>
+      <div><span class="sf-key">Description=</span><span class="sf-val">Mein selbsterstellter Dienst</span></div>
+      <div>&nbsp;</div>
+      <div><span class="sf-section">[Service]</span></div>
+      <div><span class="sf-key">Type=</span><span class="sf-val">simple</span></div>
+      <div><span class="sf-key">ExecStart=</span><span class="sf-placeholder">... &nbsp;&lt;-- Startbefehl Ihres Programms</span></div>
+      <div>&nbsp;</div>
+      <div><span class="sf-section">[Install]</span></div>
+      <div><span class="sf-key">WantedBy=</span><span class="sf-val">multi-user.target</span></div>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-blue">c)</span>
+      <p>Sorgen Sie mittels <span class="operator">systemctl daemon-reload</span> dafür, 
+        dass die Diensteverwaltung des Betriebssystems auf die soeben neu erstellte Dienst-Konfigurationsdatei aufmerksam wird und aktivieren/starten Sie den selbst erstellten Dienst „meindienst“ anschließend mittels der bereits bekannten Terminalbefehle.
+      </p>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-1"></div><div class="dot dot-2"></div><div class="dot dot-3"></div>
+        <span class="terminal-label">Dienst aktivieren</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> <span class="cmd">sudo systemctl daemon-reload</span> <span class="output">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Neue Konfiguration laden</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">sudo systemctl enable --now meindienst</span> <span class="output">&nbsp;# Aktivieren + starten</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">systemctl status meindienst</span> <span class="output">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Status prüfen</span></div>
+      </div>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-blue">d)</span>
+      <p>
+        Überprüfen Sie, ob der Dienst wie vorgesehen arbeitet und auch nach einem Systemneustart weiterhin aktiv ist.
+      </p>
+    </div>
+    <div class="subtask">
+      <span class="subtask-label sl-blue">e)</span>
+      <p>Beenden Sie den zum Dienst gehörigen Prozess manuell mit <span class="operator">ps</span> und <span class="operator">kill</span>. 
+        Überprüfen Sie danach, wie die Diensteverwaltung des Bestriebssystems auf diesen simulierten <strong>"Programmabsturz"</strong> reagiert. 
+        Begründen Sie, weshalb diese Vorgehensweise des Betriebssystems in der Regel sinnvoll ist.</p>
+    </div>
+
+    <div class="subtask">
+      <span class="subtask-label sl-blue">f)</span>
+      <p>Erweitern Sie Ihr Programm um regelmäßige <strong>Terminalausgaben</strong>. 
+        Finden Sie anschließend heraus und beschreiben Sie, auf welchem Weg diese Ausgaben während der Ausführung als Dienst abrufbar sind. 
+      </p>
+    </div>
+
+    <div class="info-box info-yellow">
+      <span class="info-icon">💡</span>
+      <div><strong>Tipp zu f):</strong> Schauen Sie sich <span class="operator">journalctl -fu meindienst</span> an.</div>
+    </div>    
+  </div> 
 
 </div>
   <script src="lernpfad.js"></script>
